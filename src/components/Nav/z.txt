@@ -1,0 +1,291 @@
+import React, { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
+import { Link, useHistory, Redirect } from "react-router-dom";
+
+import CreateReview from "../Reviews/CreateReview";
+import CreateSkill from "../Skills/CreateSkill";
+
+import UserUI from "./UserUI";
+
+import { navMui } from "./muiNav";
+import { withStyles } from "@material-ui/core/styles";
+import {
+  Menu,
+  MenuItem,
+  CardHeader,
+  Divider,
+  IconButton,
+  AppBar,
+  Button,
+  CssBaseline,
+  Toolbar,
+  Typography,
+  Hidden,
+  Badge,
+  Avatar,
+  Box,
+  Modal,
+  Fade,
+  Backdrop,
+} from "@material-ui/core";
+
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import HomeIcon from "@material-ui/icons/Home";
+import MailIcon from "@material-ui/icons/Mail";
+import TelegramIcon from "@material-ui/icons/Telegram";
+const Nav = (props) => {
+  const { classes } = props;
+  const { currentUser, logout } = useAuth();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [error, setError] = useState("");
+  const history = useHistory();
+  const [open, setOpen] = useState(false);
+  async function handleLogout() {
+    setError("");
+    try {
+      await logout();
+      // history.push("/login");
+      return <Redirect to="/login" />;
+    } catch {
+      setError("Something went worng");
+    }
+  }
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleOpenModel = () => {
+    setOpen(true);
+  };
+  const handleCloseModel = () => {
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <CssBaseline />
+      <AppBar
+        position="static"
+        color="default"
+        elevation={0}
+        className={classes.appBar}
+      >
+        <Toolbar className={classes.toolbar}>
+          <Typography
+            variant="h6"
+            color="inherit"
+            noWrap
+            className={classes.toolbarTitle}
+          >
+            Sizarcorpse
+          </Typography>
+
+          <Box>
+            {currentUser.admin ? (
+              <>
+                <Link variant="button" to={"/admin"} className={classes.link}>
+                  <Badge aria-label="delete">
+                    <DashboardIcon style={{ color: "#132743" }} />
+                  </Badge>
+                </Link>
+              </>
+            ) : null}
+          </Box>
+          <Box style={{ marginRight: 20 }}>
+            {currentUser ? (
+              <>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  startIcon={<TelegramIcon />}
+                  style={{ marginRight: 20 }}
+                  onClick={handleOpenModel}
+                >
+                  <Typography variant="h5" className={classes.submitButtonText}>
+                    Create a Review
+                  </Typography>
+                </Button>
+                <Modal
+                  aria-labelledby="transition-modal-title"
+                  aria-describedby="transition-modal-description"
+                  className={classes.modal}
+                  open={open}
+                  onClose={handleCloseModel}
+                  closeAfterTransition
+                  BackdropComponent={Backdrop}
+                  BackdropProps={{
+                    timeout: 500,
+                  }}
+                >
+                  <Fade in={open}>
+                    <div className={classes.paper}>
+                      <CreateSkill handleCloseModel={handleCloseModel} />
+                      {/* <CreateReview handleCloseModel={handleCloseModel} /> */}
+                    </div>
+                  </Fade>
+                </Modal>
+
+                <Link
+                  variant="button"
+                  to={"/dashboard"}
+                  className={classes.navLink}
+                >
+                  <Badge aria-label="delete">
+                    <HomeIcon style={{ color: "#132743" }} />
+                  </Badge>
+                </Link>
+
+                <Link variant="button" to={"#"} className={classes.navLink}>
+                  <Badge color="secondary" badgeContent={12}>
+                    <MailIcon style={{ color: "#132743" }} />
+                  </Badge>
+                </Link>
+              </>
+            ) : null}
+          </Box>
+
+          <Box>
+            {currentUser ? (
+              <Avatar
+                aria-label="recipe"
+                onMouseOver={handleClick}
+                onClose={handleClose}
+                className={classes.avatar2}
+              >
+                <img
+                  src={currentUser.photoURL}
+                  alt=""
+                  style={{ height: 30, width: "100%", objectFit: "cover" }}
+                />
+              </Avatar>
+            ) : null}
+          </Box>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            onMouseLeave={handleClose}
+            className={classes.menu}
+          >
+            <MenuItem onClick={handleClose}>
+              <CardHeader
+                style={{ paddingLeft: 0 }}
+                avatar={
+                  <Avatar aria-label="recipe" className={classes.avatar}>
+                    <img
+                      src={currentUser.photoURL}
+                      alt=""
+                      style={{ height: 40, width: "100%", objectFit: "cover" }}
+                    />
+                  </Avatar>
+                }
+                title={
+                  <Typography variant="h5" className={classes.neckText}>
+                    {currentUser.displayName}
+                  </Typography>
+                }
+                subheader={
+                  <Typography variant="p" className={classes.neckText2}>
+                    {currentUser.email}
+                  </Typography>
+                }
+              />
+            </MenuItem>
+            <Divider
+              style={{
+                marginTop: "0px",
+                marginBottom: "20px",
+              }}
+            />
+            <MenuItem onClick={handleClose}>
+              <Typography variant="p" className={classes.neckText2}>
+                Profile
+              </Typography>
+            </MenuItem>
+            <Link
+              variant="button"
+              to={"#"}
+              className={classes.link}
+              to={"/accountsetting"}
+            >
+              <MenuItem onClick={handleClose}>
+                <Typography variant="p" className={classes.neckText2}>
+                  Account Setting
+                </Typography>
+              </MenuItem>
+            </Link>
+            <MenuItem onClick={handleClose}>
+              <Typography variant="p" className={classes.neckText2}>
+                Help
+              </Typography>
+            </MenuItem>
+            <Divider
+              style={{
+                marginTop: "20px",
+                marginBottom: "20px",
+              }}
+            />
+            <MenuItem onClick={handleLogout}>
+              <Typography variant="p" className={classes.neckText2}>
+                Logout
+              </Typography>
+            </MenuItem>
+          </Menu>
+        </Toolbar>
+      </AppBar>
+    </>
+  );
+};
+
+export default withStyles(navMui)(Nav);
+
+
+
+    blogPhotos.map((file) => {
+      const uploadTask = stroage.ref(`blogs/${file.name}`).put(file);
+      promises.push(uploadTask);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (error) => console.log(error.code),
+        async () => {
+          const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+          //  // setBlogPhotosURL((cv) => [...cv, downloadURL]);
+          var img = new Image();
+          img.onload = async () => {
+            var height = img.height;
+            var width = img.width;
+            //  // var newMetadata = {
+            //   //   customMetadata: {
+            //  //     height: height,
+            //  //     width: width,
+            //  //   },
+            //  // };
+            //  // await uploadTask.snapshot.ref.updateMetadata(newMetadata);
+            const newPhoto = {
+              blogPhotoID: uuid(),
+              // blogPhotoCreatorID: currentUser.uid,
+              blogPhoto: downloadURL,
+              blogPhotoHeight: height,
+              blogPhotoWidth: width,
+              // blogPhotoCreatedAt: new Date().toISOString(),
+            };
+
+            setBlogPhotosURL((cv) => [...cv, newPhoto]);
+            await db
+              .doc(`blogPhotos/${newPhoto.blogPhotoID}`)
+              .set(newPhoto)
+              .then(() => {
+                console.log("Document successfully written!");
+              })
+              .catch(() => console.log("error error"));
+          };
+          img.src = downloadURL;
+        }
+      );
+    });

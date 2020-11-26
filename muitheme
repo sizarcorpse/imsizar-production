@@ -1,0 +1,135 @@
+#palette
+    primary
+        light:c
+        main:c
+        dark:c
+    secondary
+        light:c
+        main:c
+        dark:c
+    text
+        primary:c
+        secondary:
+    background
+        paper:
+        default:
+
+#typography
+    htmlFontSize:s
+    fontFamily:
+    fontSize:
+    fontWeightLight:300
+    fontWeightRegular: 400
+    fontWeightMedium: 500
+    fontWeightBold: 700
+    h1: Object
+        fontFamily: ""Roboto", "Helvetica", "Arial", sans-serif"
+        fontWeight: 300
+        fontSize: "6rem"
+        lineHeight: 1.167
+        letter: "-0.01562em"
+    h1:
+    h2:
+    h3:
+    h4:
+    h5:
+    h6:
+    subtitle1:
+    subtitle2:
+    body1:
+    body2:
+    button:
+
+#shape
+
+#overrides
+#props
+
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#display
+    inline      :   <Box component="div" display="inline">inline</Box>
+    block       :   <Box component="span" display="block">block</Box>
+    overflow
+        Hidden  :   <Box component="div" overflow="hidden"></Box>
+        visible :   <Box component="div" overflow="visible"></Box>
+    Visibility  
+        visible :   <Box component="div" visibility="visible"></Box>
+        hidden  :   <Box component="div" visibility="hidden"></Box>
+    White Space 
+        Nowrap  :   <Box component="div" whiteSpace="nowrap"></Box>
+        Normal  :   <Box component="div" whiteSpace="normal"></Box>
+
+
+#Flexbox
+    flex            :   <Box display="flex"></Box>
+    flexDirection
+        row         :   <Box display="flex" flexDirection="row"></Box>
+        row-reverse :   <Box display="flex" flexDirection="row-reverse"></Box>
+    flex-wrap             
+        nowrap      :   <Box display="flex" flexWrap="nowrap">
+        wrap        :   <Box display="flex" flexWrap="warp">
+    justify-content     ⬅ ➡
+        flex-start  :   <Box display="flex" justifyContent="flex-start">
+        flex-end    :   <Box display="flex" justifyContent="flex-end">
+        center      :   <Box display="flex" justifyContent="center">
+    align-items         ⬆ ⬇
+        flex-start  :   <Box display="flex" alignItems="flex-start">
+        flex-end    :   <Box display="flex" alignItems="flex-end">
+        center      :   <Box display="flex" alignItems="center">
+    align-content       [⬆ ⬇]
+        flex-start  :   <Box display="flex" flexWrap="wrap" alignItems="flex-start">
+        flex-end    :   <Box display="flex" flexWrap="wrap" alignItems="flex-end">
+        center      :   <Box display="flex" flexWrap="wrap" justifyContent="center">
+    order
+        order       :   <Box order={2}></Box>
+    flex-grow
+        flexGrow    :   <Box flexGrow={1}>Item 1</Box>
+    flex-grow
+        flexShrink  :   <Box flexShrink={1}>Item 1</Box>
+                        <Box flexShrink={0}>Item 1</Box>
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#Sizing
+    width           :   <Box width={1 / 4}></Box>
+                        <Box width={300}></Box>
+                        <Box width="75%"></Box>
+                        <Box width={1}>
+    height          :   <Box height="25%">
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#Spacing
+
+    m - for classes that set margin
+    p - for classes that set padding
+
+
+    t - for classes that set margin-top or padding-top
+    b - for classes that set margin-bottom or padding-bottom
+    l - for classes that set margin-left or padding-left
+    r - for classes that set margin-right or padding-right
+    x - for classes that set both *-left and *-right
+    y - for classes that set both *-top and *-bottom
+
+	m	margin	
+	mt	margin-top	
+	mr	margin-right	
+	mb	margin-bottom	
+	ml	margin-left	
+	mx	margin-left, margin-right	
+	my	margin-top, margin-bottom	
+	p	padding	
+	pt	padding-top	
+	pr	padding-right	
+	pb	padding-bottom	
+	pl	padding-left	
+	px	padding-left, padding-right	
+	py	padding-top, padding-bottom	
+
+    <Box m={0} />
