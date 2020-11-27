@@ -20,7 +20,23 @@ export const MuiDistributor = (theme) => ({
 
   ScuiCardSingle: {
     maxWidth: 500,
-    padding: theme.spacing(6),
+    [theme.breakpoints.down("xs")]: {
+      padding: theme.spacing(1),
+    },
+
+    [theme.breakpoints.down("sm")]: {
+      padding: theme.spacing(3),
+    },
+    [theme.breakpoints.up("md")]: {
+      padding: theme.spacing(4),
+    },
+
+    [theme.breakpoints.up("lg")]: {
+      padding: theme.spacing(5),
+    },
+    [theme.breakpoints.up("xl")]: {
+      padding: theme.spacing(6),
+    },
   },
 
   ScuiMiddle: {
