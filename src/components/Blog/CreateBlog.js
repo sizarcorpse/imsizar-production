@@ -143,7 +143,7 @@ const CreateBlog = (props) => {
 
     try {
       const blogPost = {
-        blogPostID: uuid(),
+        blogPostID: uuidv4(),
         blogCreatorID: currentUser.uid,
         blogCreatorDisplayName: currentUser.displayName,
         blogCreatorPhotoUrl: currentUser.photoURL,
