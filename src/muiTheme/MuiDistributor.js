@@ -1,21 +1,45 @@
 import bg from "../assets/background.svg";
 
 export const MuiDistributor = (theme) => ({
-  image: {
+  //signup
+  ScuiMainContainer: {
+    height: "100vh",
     background: `url(${bg})  no-repeat center center fixed`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
   },
 
-  //signup
+  ScuiBoxFullHeight: {
+    height: "100vh",
+  },
 
-  PaperSingle: {
+  ScuiPaperSingle: {
     maxWidth: 500,
   },
 
-  CardSingle: {
+  ScuiCardSingle: {
     maxWidth: 500,
     padding: theme.spacing(6),
+  },
+
+  ScuiMiddle: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  ScuiLinkUnderLineRemove: {
+    textDecoration: "none",
+    textTransform: "none",
+  },
+
+  //divider
+  ScuiDividerT24: {
+    marginTop: theme.spacing(3),
+  },
+  ScuiDividerTB24: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 });

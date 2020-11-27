@@ -1,9 +1,9 @@
 import React from "react";
 import { useAuth } from "../../contexts/AuthContext";
-// import { Link, useHistory, Redirect } from "react-router-dom";
+import { Link, useHistory, Redirect } from "react-router-dom";
 
-import UserUI from "./UserUI";
-import AdminUI from "./AdminUI/AdminUI";
+// import UserUI from "./UserUI";
+// import AdminUI from "./AdminUI/AdminUI";
 import PublicUI from "./PublicUI";
 
 import { navMui } from "./muiNav";
@@ -23,13 +23,14 @@ const Nav = (props) => {
         elevation={0}
         className={classes.appBar}
       >
-        {currentUser && currentUser.admin === undefined ? (
+        <PublicUI />
+        {/* {currentUser && currentUser.admin === undefined ? (
           <UserUI />
         ) : currentUser && currentUser.admin === true ? (
           <AdminUI />
         ) : (
           <PublicUI />
-        )}
+        )} */}
       </AppBar>
     </>
   );

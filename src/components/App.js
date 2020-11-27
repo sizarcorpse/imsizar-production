@@ -9,6 +9,8 @@ import { AuthProvider } from "../contexts/AuthContext";
 // #components :
 import Nav from "./Nav/Nav.js";
 import Signup from "./Signup/Signup.js";
+import Signin from "./Signin/Signin.js";
+import ResetPassword from "./Signin/ResetPassword.js";
 
 import AdminRoute from "../customRoutes/AdminRoute";
 import PrivateRoute from "../customRoutes/PrivateRoute";
@@ -43,7 +45,9 @@ function App() {
           <AuthProvider>
             <Route path="/" component={Nav} />
             <Switch>
-              <RouteBack path="/signup" exact component={Signup} />
+              <Route path="/signup" exact component={Signup} />
+              <Route path="/login" exact component={Signin} />
+              <Route path="/resetpassword" exact component={ResetPassword} />
             </Switch>
           </AuthProvider>
         </SnackbarProvider>

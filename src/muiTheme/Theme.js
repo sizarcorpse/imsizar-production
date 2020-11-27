@@ -1,5 +1,7 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
+const baal = "#3f72af";
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -62,7 +64,7 @@ const theme = createMuiTheme({
     },
     h5: {
       // button text
-      fontSize: 13,
+      fontSize: 14,
       fontWeight: 500,
       fontStyle: "normal",
       lineHeight: 1.5,
@@ -71,6 +73,7 @@ const theme = createMuiTheme({
 });
 
 theme.overrides = {
+  // #action : Text field && input field
   MuiInputLabel: {
     root: {
       top: 0,
@@ -110,6 +113,33 @@ theme.overrides = {
       },
     },
   },
+
+  // #action : Button
+
+  MuiButton: {
+    root: {
+      borderRadius: 0,
+      textTransform: "none",
+    },
+    containedPrimary: {
+      height: 40,
+    },
+    containedSecondary: {
+      height: 40,
+      marginTop: theme.spacing(2),
+      marginBotton: theme.spacing(2),
+      backgroundColor: baal,
+      "&:hover": {
+        backgroundColor: "#396dab",
+      },
+    },
+  },
+};
+
+theme.props = {
+  // #action : Button
+
+  MuiButton: {},
 };
 
 export default theme;

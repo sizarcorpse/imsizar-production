@@ -14,11 +14,12 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useSnackbar } from "notistack";
 
 // #validations :
-import { validationSchema } from "./signupFromValidation";
+import { validationSchema } from "./logInFormValidation";
 
 // #material-ui :
 import clsx from "clsx";
 import { MuiDistributor } from "../../muiTheme/MuiDistributor";
+
 import { withStyles } from "@material-ui/core/styles";
 import {
   FormControl,
@@ -37,63 +38,57 @@ import {
   TextField,
   Box,
 } from "@material-ui/core";
-import PersonIcon from "@material-ui/icons/Person";
+
 import EmailIcon from "@material-ui/icons/Email";
 import LockIcon from "@material-ui/icons/Lock";
-import FaceIcon from "@material-ui/icons/Face";
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
 
-const Signup = (props) => {
+const Signin = (props) => {
   const { classes } = props;
-  const { signup } = useAuth();
-  const { enqueueSnackbar } = useSnackbar();
   const history = useHistory();
+  const { login } = useAuth();
+  const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const [checked, setChecked] = React.useState(false);
+
   const handleChecked = () => {
     setChecked(!checked);
   };
 
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    username: "",
     email: "",
     password: "",
   };
 
   const onSubmit = async (values, { resetForm }) => {
-    const { email, password, firstName, lastName, username } = values;
-    const db = app.firestore();
+    const { email, password } = values;
+
     try {
       setLoading(true);
-      db.collection("users")
-        .where("username", "==", username)
-        .limit(1)
-        .get()
-        .then((data) => {
-          data.forEach(async (doc) => {
-            if (doc.data().username === username) {
-              setLoading(false);
-              return enqueueSnackbar("username already exists", {
-                variant: "error",
-              });
-            } else {
-              await signup(email, password, firstName, lastName, username);
-              history.push("/dashboard");
-            }
-          });
-        });
-    } catch (e) {
-      enqueueSnackbar(e.message, {
+      await login(email, password);
+      setTimeout(() => {
+        history.push("/dashboard");
+      }, 10);
+    } catch {
+      enqueueSnackbar("Something went wrong🤪❌❌❗. Please try again😇👻.", {
         variant: "error",
       });
-      setLoading(false);
     }
+    setLoading(false);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
   return (
     <Grid container component="main" className={classes.ScuiMainContainer}>
+      {/* {loading && "Loading "} */}
       <CssBaseline />
       <Grid item xs={false} xl={4} lg={3} md={2} sm={1} />
       <Grid item xs={12} xl={4} lg={6} md={8} sm={10}>
@@ -103,15 +98,15 @@ const Signup = (props) => {
             <Card className={classes.ScuiCardSingle}>
               <Box className={classes.ScuiMiddle}>
                 <CardHeader
-                  title={<Typography variant="h1">Create Account</Typography>}
+                  title={<Typography variant="h1">Welcome</Typography>}
                   subheader={
                     <Typography variant="h4" color="secondary">
-                      Already have an account?
+                      Don't have an Account?{" "}
                       <Link
-                        to={"/login"}
+                        to={"/signup"}
                         className={classes.ScuiLinkUnderLineRemove}
                       >
-                        Sign in{" "}
+                        Sign up{" "}
                       </Link>
                     </Typography>
                   }
@@ -123,10 +118,10 @@ const Signup = (props) => {
                   variant="contained"
                   color="secondary"
                   fullWidth
-                  startIcon={<AlternateEmailIcon color="primary" />}
+                  startIcon={<AlternateEmailIcon color="secondary" />}
                 >
                   <Typography variant="h5" color="primary">
-                    Sign up with google
+                    Sign in with google
                   </Typography>
                 </Button>
                 <Divider className={classes.ScuiDividerT24} />
@@ -151,106 +146,6 @@ const Signup = (props) => {
                     <CardContent>
                       <Form>
                         <Grid container spacing={2}>
-                          <Grid item xs={6}>
-                            <FormControl
-                              error={
-                                touched.firstName && Boolean(errors.firstName)
-                              }
-                              fullWidth
-                            >
-                              <TextField
-                                InputProps={{
-                                  startAdornment:
-                                    touched.firstName &&
-                                    Boolean(errors.firstName) ? (
-                                      <InputAdornment position="start">
-                                        <FaceIcon style={{ color: "red" }} />
-                                      </InputAdornment>
-                                    ) : (
-                                      <InputAdornment position="start">
-                                        <FaceIcon />
-                                      </InputAdornment>
-                                    ),
-                                }}
-                                autoComplete="firstName"
-                                name="firstName"
-                                variant="outlined"
-                                id="firstName"
-                                label="First Name"
-                                value={values.firstName}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                              />
-                            </FormControl>
-                          </Grid>
-
-                          <Grid item xs={6}>
-                            <FormControl
-                              error={
-                                touched.lastName && Boolean(errors.lastName)
-                              }
-                              fullWidth
-                            >
-                              <TextField
-                                InputProps={{
-                                  startAdornment:
-                                    touched.lastName &&
-                                    Boolean(errors.lastName) ? (
-                                      <InputAdornment position="start">
-                                        <FaceIcon style={{ color: "red" }} />
-                                      </InputAdornment>
-                                    ) : (
-                                      <InputAdornment position="start">
-                                        <FaceIcon />
-                                      </InputAdornment>
-                                    ),
-                                }}
-                                autoComplete="lastName"
-                                name="lastName"
-                                variant="outlined"
-                                fullWidth
-                                id="lastName"
-                                label="Last Name"
-                                value={values.lastName}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                              />
-                            </FormControl>
-                          </Grid>
-                          <Divider />
-                          <Grid item xs={12}>
-                            <FormControl
-                              error={
-                                touched.username && Boolean(errors.username)
-                              }
-                              fullWidth
-                            >
-                              <TextField
-                                InputProps={{
-                                  startAdornment:
-                                    touched.username &&
-                                    Boolean(errors.username) ? (
-                                      <InputAdornment position="start">
-                                        <PersonIcon style={{ color: "red" }} />
-                                      </InputAdornment>
-                                    ) : (
-                                      <InputAdornment position="start">
-                                        <PersonIcon />
-                                      </InputAdornment>
-                                    ),
-                                }}
-                                autoComplete="username"
-                                name="username"
-                                variant="outlined"
-                                fullWidth
-                                id="username"
-                                label="Username"
-                                value={values.username}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                              />
-                            </FormControl>
-                          </Grid>
                           <Grid item xs={12}>
                             <FormControl
                               error={touched.email && Boolean(errors.email)}
@@ -317,7 +212,6 @@ const Signup = (props) => {
                               />
                             </FormControl>
                           </Grid>
-
                           {/* // #action : */}
                           <Grid item xs={12}>
                             <Divider className={classes.ScuiDividerTB24} />
@@ -335,18 +229,7 @@ const Signup = (props) => {
                               }
                               label={
                                 <Typography variant="h4" color="secondary">
-                                  I agree to the{" "}
-                                  <Link
-                                    className={classes.ScuiLinkUnderLineRemove}
-                                  >
-                                    Terms of Service
-                                  </Link>{" "}
-                                  and{" "}
-                                  <Link
-                                    className={classes.ScuiLinkUnderLineRemove}
-                                  >
-                                    Privacy Policy
-                                  </Link>
+                                  Keep me logged in
                                 </Typography>
                               }
                             />
@@ -357,13 +240,21 @@ const Signup = (props) => {
                           variant="contained"
                           color="secondary"
                           fullWidth
-                          disabled={loading}
                         >
                           <Typography variant="h5" color="primary">
-                            Create Now
+                            Log in
                           </Typography>
                         </Button>
                       </Form>
+                      <Divider className={classes.ScuiDividerTB24} />
+                      <Typography variant="h5">
+                        <Link
+                          to={"/resetpassword"}
+                          className={classes.ScuiLinkUnderLineRemove}
+                        >
+                          Forgot your username or password?
+                        </Link>
+                      </Typography>
                     </CardContent>
                   );
                 }}
@@ -377,4 +268,4 @@ const Signup = (props) => {
   );
 };
 
-export default withStyles(MuiDistributor)(Signup);
+export default withStyles(MuiDistributor)(Signin);
