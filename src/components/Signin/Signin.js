@@ -87,15 +87,19 @@ const Signin = (props) => {
   };
 
   return (
-    <Grid container component="main" className={classes.ScuiMainContainer}>
+    <Grid
+      container
+      component="main"
+      className={clsx(classes.ScuiMainContainer, classes.ScuiBackground)}
+    >
       {/* {loading && "Loading "} */}
       <CssBaseline />
       <Grid item xs={false} xl={4} lg={3} md={2} sm={1} />
       <Grid item xs={12} xl={4} lg={6} md={8} sm={10}>
         {/* // #action : */}
         <Box className={clsx(classes.ScuiMiddle, classes.ScuiBoxFullHeight)}>
-          <Paper className={classes.ScuiPaperSingle}>
-            <Card className={classes.ScuiCardSingle}>
+          <Paper className={classes.ScuiPaperSmall}>
+            <Card className={classes.ScuiCardSmall}>
               <Box className={classes.ScuiMiddle}>
                 <CardHeader
                   title={<Typography variant="h1">Welcome</Typography>}

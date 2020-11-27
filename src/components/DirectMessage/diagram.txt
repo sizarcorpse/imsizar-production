@@ -1,0 +1,13 @@
+@conversation
+    {conversationid}
+        conversationID
+        conversationCreatedAt
+        participants[senderUID,receiverUID]
+    @Text messages
+        {messageid}
+            messageID
+            messageCreatedAt
+            messageBody
+            senderUID
+            senderDisplayname
+            senderPhotoUrl

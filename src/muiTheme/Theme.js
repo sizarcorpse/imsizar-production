@@ -21,7 +21,6 @@ const theme = createMuiTheme({
   },
 
   //
-  //
   typography: {
     fontFamily: '"Roboto"',
     h1: {
@@ -68,6 +67,17 @@ const theme = createMuiTheme({
       fontWeight: 500,
       fontStyle: "normal",
       lineHeight: 1.5,
+    },
+    h6: {
+      // not now text
+      marginRight: 50,
+      fontSize: 15,
+      fontWeight: 500,
+      fontStyle: "normal",
+      lineHeight: 2.7,
+      color: "#132743",
+      marginTop: 8,
+      marginRight: 48,
     },
   },
 });
@@ -123,6 +133,12 @@ theme.overrides = {
     },
     containedPrimary: {
       height: 40,
+      marginTop: theme.spacing(1),
+      marginBotton: theme.spacing(1),
+      backgroundColor: baal,
+      "&:hover": {
+        backgroundColor: "#396dab",
+      },
     },
     containedSecondary: {
       height: 40,
@@ -137,9 +153,7 @@ theme.overrides = {
 };
 
 theme.props = {
-  // #action : Button
-
-  MuiButton: {},
+  // #action :
 };
 
 export default theme;
