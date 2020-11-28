@@ -32,9 +32,15 @@ export const MuiDistributor = (theme) => ({
     justifyContent: "center",
     alignItems: "center",
   },
+  ScuiCenter: {
+    display: "flex",
+    justifyContent: "center",
+  },
+
   ScuiBoxFullHeight: {
     height: "100vh",
   },
+
   ScuiNone: {},
 
   ScuiPaperSmall: {
@@ -67,7 +73,6 @@ export const MuiDistributor = (theme) => ({
     maxHeight: 900,
     height: 900,
     width: 900,
-    marginBottom: theme.spacing(2),
   },
 
   ScuiCardLarge: {
@@ -190,6 +195,7 @@ export const MuiDistributor = (theme) => ({
     borderRadius: 5,
   },
   ScuiTextAreaLarge: {
+    width: "100%",
     maxHeight: 400,
     fontSize: 15,
     border: "1px solid #c1c1c1",

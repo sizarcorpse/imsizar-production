@@ -36,6 +36,7 @@ import {
   Toolbar,
   IconButton,
   TextField,
+  CssBaseline,
 } from "@material-ui/core";
 import TitleIcon from "@material-ui/icons/Title";
 import CloseIcon from "@material-ui/icons/Close";
@@ -101,6 +102,7 @@ const CreateReview = (props) => {
       component="main"
       className={clsx(classes.ScuiMainContainer, classes.ScuiModalBG)}
     >
+      <CssBaseline />
       <Grid item xs={12} xl={12} lg={12} md={12} sm={12}>
         <Box>
           <Toolbar className={classes.ScuiModalClose}>
@@ -110,11 +112,15 @@ const CreateReview = (props) => {
           </Toolbar>
         </Box>
       </Grid>
-
       <Grid item xs={false} xl={3} lg={2} md={2} sm={1} />
       <Grid item xs={12} xl={6} lg={8} md={8} sm={10}>
-        {/* // #action : */}
-        <Box className={classes.ScuiMiddle}>
+        <Box
+          className={clsx({
+            [classes.ScuiMiddle]: true,
+            [classes.ScuiBoxFullHeight]: width === "xl",
+            [classes.ScuiCenter]: width === "lg",
+          })}
+        >
           <Paper className={classes.ScuiPaperLarge}>
             <Card className={classes.ScuiCardLarge}>
               <CardHeader
@@ -126,12 +132,11 @@ const CreateReview = (props) => {
                 }
               />
               <Divider className={classes.ScuiDividerT24} />
-              {/* // #action : */}
               <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
-                validateOnChange={true}
+                validateOnChange={false}
                 validateOnBlur={false}
               >
                 {(props) => {
@@ -142,9 +147,10 @@ const CreateReview = (props) => {
                     handleChange,
                     handleBlur,
                   } = props;
+
                   return (
                     <Form>
-                      <CardContent className={classes.ScuiCardLargeMainArea500}>
+                      <CardContent className={classes.ScuiCardLargeMainArea}>
                         <Grid container spacing={2}>
                           <Grid item xs={12}>
                             <FormControl
@@ -171,9 +177,9 @@ const CreateReview = (props) => {
                                 autoComplete="reviewTitle"
                                 name="reviewTitle"
                                 variant="outlined"
-                                fullWidth
                                 id="reviewTitle"
                                 label="Title"
+                                fullWidth
                                 placeholder="This will not be used right now. Can be empty."
                                 value={values.reviewTitle}
                                 onChange={handleChange}
@@ -181,7 +187,6 @@ const CreateReview = (props) => {
                               />
                             </FormControl>
                           </Grid>
-
                           <Grid item xs={12}>
                             <FormControl
                               error={

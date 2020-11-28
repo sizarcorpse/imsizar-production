@@ -14,7 +14,6 @@ export const navMui = (theme) => ({
   },
   appBar: {
     height: 50,
-    maxHeight: 50,
     borderBottom: `1px solid ${theme.palette.divider}`,
     justifyContent: "center",
   },

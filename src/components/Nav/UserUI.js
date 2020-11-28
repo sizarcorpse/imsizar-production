@@ -61,176 +61,166 @@ const UserUI = (props) => {
   };
 
   return (
-    <Box>
-      <Toolbar className={classes.toolbar}>
-        <Typography
-          variant="h6"
-          color="inherit"
-          noWrap
-          className={classes.toolbarTitle}
-        >
-          User
-        </Typography>
+    <Toolbar className={classes.toolbar}>
+      <Typography
+        variant="h6"
+        color="inherit"
+        noWrap
+        className={classes.toolbarTitle}
+      >
+        User
+      </Typography>
 
-        <Box style={{ marginRight: 20 }}>
-          {currentUser ? (
-            <>
-              <Button
-                variant="outlined"
-                color="primary"
-                startIcon={<TelegramIcon />}
-                style={{ marginRight: 20 }}
-                onClick={handleOpenModel}
-              >
-                <Typography variant="h5" className={classes.submitButtonText}>
-                  Create a Review
-                </Typography>
-              </Button>
-              <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={open}
-                onClose={handleCloseModel}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                  timeout: 500,
-                }}
-              >
-                <Fade in={open}>
-                  <div className={classes.paper}>
-                    <CreateReview handleCloseModel={handleCloseModel} />
-                    {/* <CreateSkill handleCloseModel={handleCloseModel} /> */}
-                  </div>
-                </Fade>
-              </Modal>
-
-              <Link
-                variant="button"
-                to={"/dashboard"}
-                className={classes.navLink}
-              >
-                <Badge aria-label="delete">
-                  <HomeIcon style={{ color: "#132743" }} />
-                </Badge>
-              </Link>
-
-              <Link variant="button" to={"/inbox"} className={classes.navLink}>
-                <Badge color="secondary" badgeContent={12}>
-                  <MailIcon style={{ color: "#132743" }} />
-                </Badge>
-              </Link>
-            </>
-          ) : null}
-        </Box>
-
-        <Box>
-          {currentUser ? (
-            <Avatar
-              aria-label="recipe"
-              onMouseOver={handleClick}
-              onClose={handleClose}
-              className={classes.avatar2}
+      <Box style={{ marginRight: 20 }}>
+        {currentUser ? (
+          <>
+            <Button
+              variant="outlined"
+              color="primary"
+              startIcon={<TelegramIcon />}
+              style={{ marginRight: 20 }}
+              onClick={handleOpenModel}
             >
-              <img
-                src={currentUser.photoURL}
-                alt=""
-                style={{ height: 30, width: "100%", objectFit: "cover" }}
-              />
-            </Avatar>
-          ) : null}
-        </Box>
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-          onMouseLeave={handleClose}
-          className={classes.menu}
+              <Typography variant="h5" className={classes.submitButtonText}>
+                Create a Review
+              </Typography>
+            </Button>
+            <Modal
+              aria-labelledby="transition-modal-title"
+              aria-describedby="transition-modal-description"
+              className={classes.modal}
+              open={open}
+              onClose={handleCloseModel}
+              closeAfterTransition
+              BackdropComponent={Backdrop}
+              BackdropProps={{
+                timeout: 500,
+              }}
+            >
+              <Fade in={open}>
+                <div className={classes.paper}>
+                  <CreateReview handleCloseModel={handleCloseModel} />
+                  {/* <CreateSkill handleCloseModel={handleCloseModel} /> */}
+                </div>
+              </Fade>
+            </Modal>
+
+            <Link
+              variant="button"
+              to={"/dashboard"}
+              className={classes.navLink}
+            >
+              <Badge aria-label="delete">
+                <HomeIcon style={{ color: "#132743" }} />
+              </Badge>
+            </Link>
+
+            <Link variant="button" to={"/inbox"} className={classes.navLink}>
+              <Badge color="secondary" badgeContent={12}>
+                <MailIcon style={{ color: "#132743" }} />
+              </Badge>
+            </Link>
+          </>
+        ) : null}
+      </Box>
+
+      <Box>
+        {currentUser ? (
+          <Avatar
+            aria-label="recipe"
+            onMouseOver={handleClick}
+            onClose={handleClose}
+            className={classes.avatar2}
+          >
+            <img
+              src={currentUser.photoURL}
+              alt=""
+              style={{ height: 30, width: "100%", objectFit: "cover" }}
+            />
+          </Avatar>
+        ) : null}
+      </Box>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        onMouseLeave={handleClose}
+        className={classes.menu}
+      >
+        <MenuItem onClick={handleClose}>
+          <CardHeader
+            style={{ paddingLeft: 0 }}
+            avatar={
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                <img
+                  src={currentUser.photoURL}
+                  alt=""
+                  style={{ height: 40, width: "100%", objectFit: "cover" }}
+                />
+              </Avatar>
+            }
+            title={
+              <Typography variant="h5" className={classes.neckText}>
+                {currentUser.displayName}
+              </Typography>
+            }
+            subheader={
+              <Typography variant="p" className={classes.neckText2}>
+                {currentUser.email}
+              </Typography>
+            }
+          />
+        </MenuItem>
+        <Divider
+          style={{
+            marginTop: "0px",
+            marginBottom: "20px",
+          }}
+        />
+        <Link
+          variant="button"
+          className={classes.link}
+          to={`/u/${currentUserProfile && currentUserProfile.username}`}
         >
           <MenuItem onClick={handleClose}>
-            <CardHeader
-              style={{ paddingLeft: 0 }}
-              avatar={
-                <Avatar aria-label="recipe" className={classes.avatar}>
-                  <img
-                    src={currentUser.photoURL}
-                    alt=""
-                    style={{ height: 40, width: "100%", objectFit: "cover" }}
-                  />
-                </Avatar>
-              }
-              title={
-                <Typography variant="h5" className={classes.neckText}>
-                  {currentUser.displayName}
-                </Typography>
-              }
-              subheader={
-                <Typography variant="p" className={classes.neckText2}>
-                  {currentUser.email}
-                </Typography>
-              }
-            />
+            <Typography variant="p" className={classes.neckText2}>
+              Profile
+            </Typography>
           </MenuItem>
-          <Divider
-            style={{
-              marginTop: "0px",
-              marginBottom: "20px",
-            }}
-          />
-          <Link
-            variant="button"
-            className={classes.link}
-            to={`/u/${currentUserProfile && currentUserProfile.username}`}
-          >
-            <MenuItem onClick={handleClose}>
-              <Typography variant="p" className={classes.neckText2}>
-                Profile
-              </Typography>
-            </MenuItem>
-          </Link>
-          <Link
-            variant="button"
-            className={classes.link}
-            to={"/accountsettings"}
-          >
-            <MenuItem onClick={handleClose}>
-              <Typography variant="p" className={classes.neckText2}>
-                Account Setting
-              </Typography>
-            </MenuItem>
-          </Link>
-          <Link
-            variant="button"
-            className={classes.link}
-            to={"/profilesettings"}
-          >
-            <MenuItem onClick={handleClose}>
-              <Typography variant="p" className={classes.neckText2}>
-                Profile Setting
-              </Typography>
-            </MenuItem>
-          </Link>
+        </Link>
+        <Link variant="button" className={classes.link} to={"/accountsettings"}>
           <MenuItem onClick={handleClose}>
             <Typography variant="p" className={classes.neckText2}>
-              Help
+              Account Setting
             </Typography>
           </MenuItem>
-          <Divider
-            style={{
-              marginTop: "20px",
-              marginBottom: "20px",
-            }}
-          />
-
-          <MenuItem onClick={handleLogout}>
+        </Link>
+        <Link variant="button" className={classes.link} to={"/profilesettings"}>
+          <MenuItem onClick={handleClose}>
             <Typography variant="p" className={classes.neckText2}>
-              Logout
+              Profile Setting
             </Typography>
           </MenuItem>
-        </Menu>
-      </Toolbar>
-    </Box>
+        </Link>
+        <MenuItem onClick={handleClose}>
+          <Typography variant="p" className={classes.neckText2}>
+            Help
+          </Typography>
+        </MenuItem>
+        <Divider
+          style={{
+            marginTop: "20px",
+            marginBottom: "20px",
+          }}
+        />
+
+        <MenuItem onClick={handleLogout}>
+          <Typography variant="p" className={classes.neckText2}>
+            Logout
+          </Typography>
+        </MenuItem>
+      </Menu>
+    </Toolbar>
   );
 };
 
