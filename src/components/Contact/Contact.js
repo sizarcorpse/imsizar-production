@@ -13,6 +13,7 @@ import { validationSchema } from "./ContactFormValidation";
 
 // #material-ui :
 import clsx from "clsx";
+import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { withStyles } from "@material-ui/core/styles";
 import { MuiDistributor } from "../../muiTheme/MuiDistributor";
 
@@ -44,7 +45,7 @@ import LanguageIcon from "@material-ui/icons/Language";
 import CloseIcon from "@material-ui/icons/Close";
 const Contact = (props) => {
   const { currentUser } = useAuth();
-  const { classes, handleContactMeModelClose } = props;
+  const { classes, handleContactMeModelClose, width } = props;
 
   const [labelWidth, setLabelWidth] = useState(0);
   const inputLabel = useRef(null);
@@ -116,7 +117,14 @@ const Contact = (props) => {
       <Grid item xs={false} xl={3} lg={2} md={2} sm={1} />
       <Grid item xs={12} xl={6} lg={8} md={8} sm={10}>
         {/* // #action : */}
-        <Box className={clsx(classes.ScuiMiddle, classes.ScuiBoxFullHeight)}>
+        {/* <Box className={clsx(classes.ScuiMiddle, classes.ScuiBoxFullHeight)}> */}
+        <Box
+          className={clsx({
+            [classes.ScuiMiddle]: true,
+            [classes.ScuiBoxFullHeight]: width === "xl",
+            [classes.ScuiNone]: width === "lg",
+          })}
+        >
           <Paper className={classes.ScuiPaperSmall}>
             <Card className={classes.ScuiCardSmall}>
               <CardHeader
@@ -430,4 +438,4 @@ const Contact = (props) => {
   );
 };
 
-export default withStyles(MuiDistributor)(Contact);
+export default withWidth()(withStyles(MuiDistributor)(Contact));

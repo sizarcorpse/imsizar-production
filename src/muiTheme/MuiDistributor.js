@@ -243,4 +243,12 @@ export const MuiDistributor = (theme) => ({
     height: 550,
     maxHeight: 550,
   },
+
+  //
+  cardpreview: {
+    width: 320,
+    maxWidth: 320,
+    maxHeight: 300,
+    margin: "auto auto",
+  },
 });

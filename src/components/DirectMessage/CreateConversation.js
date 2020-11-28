@@ -16,8 +16,10 @@ import { useSnackbar } from "notistack";
 import { validationSchema } from "./CreateConversationFormValidation";
 
 // #material-ui :
+import clsx from "clsx";
+import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { withStyles } from "@material-ui/core/styles";
-import { createConversationMui } from "./muiCreateConversation";
+import { MuiDistributor } from "../../muiTheme/MuiDistributor";
 import {
   FormControl,
   InputAdornment,
@@ -30,13 +32,17 @@ import {
   Button,
   TextareaAutosize,
   Paper,
+  CssBaseline,
+  Box,
+  Toolbar,
+  IconButton,
 } from "@material-ui/core";
-import TitleIcon from "@material-ui/icons/Title";
+import CloseIcon from "@material-ui/icons/Close";
 
 const CreateConversation = (props) => {
   const { currentUser } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
-  const { classes, handleCreateConvModelClose } = props;
+  const { classes, handleCreateConvModelClose, width } = props;
   const [loading, setLoading] = useState(false);
 
   const initialValues = {
@@ -112,111 +118,122 @@ const CreateConversation = (props) => {
   };
 
   return (
-    <Grid container component="main" className={classes.main}>
+    <Grid
+      container
+      component="main"
+      className={clsx(classes.ScuiMainContainer, classes.ScuiModalBG)}
+    >
+      <CssBaseline />
+      <Grid item xs={12} xl={12} lg={12} md={12} sm={12}>
+        <Box>
+          <Toolbar className={classes.ScuiModalClose}>
+            <IconButton onClick={() => handleCreateConvModelClose(false)}>
+              <CloseIcon />
+            </IconButton>
+          </Toolbar>
+        </Box>
+      </Grid>
       <Grid item xs={false} xl={3} lg={2} md={2} sm={1} />
       <Grid item xs={12} xl={6} lg={8} md={8} sm={10}>
-        <Paper className={classes.PaperMianCotent}>
-          <Card className={classes.CardMainCard}>
-            <CardHeader
-              title={
-                <Typography variant="h5" className={classes.TextHead}>
-                  Create a Review
-                </Typography>
-              }
-            />
-            <Divider className={classes.Divider25} />
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={onSubmit}
-              validateOnChange={true}
-              validateOnBlur={false}
-            >
-              {(props) => {
-                const {
-                  values,
-                  touched,
-                  errors,
-                  handleChange,
-                  handleBlur,
-                } = props;
-                return (
-                  <Form>
-                    <CardContent className={classes.CardContentMain}>
-                      <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                          <FormControl
-                            error={touched.textArea && Boolean(errors.textArea)}
-                            fullWidth
-                          >
-                            <TextareaAutosize
-                              className={classes.textArea}
-                              InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <TitleIcon />
-                                  </InputAdornment>
-                                ),
-                              }}
-                              label="review Body"
-                              variant="outlined"
-                              id="messageBody"
-                              rowsMin={26}
-                              aria-label="maximum height"
-                              placeholder="Give me a nice cool review. (max 500 words)"
-                              name="messageBody"
-                              variant="outlined"
+        <Box
+          className={clsx({
+            [classes.ScuiMiddle]: true,
+            [classes.ScuiBoxFullHeight]: width === "xl",
+            [classes.ScuiCenter]: width === "lg",
+          })}
+        >
+          <Paper className={classes.ScuiPaperLarge}>
+            <Card className={classes.ScuiCardLarge}>
+              <CardHeader
+                title={<Typography variant="h2">Message Me</Typography>}
+                subheader={
+                  <Typography variant="h4" color="secondary">
+                    Whats you want to talk?
+                  </Typography>
+                }
+              />
+              <Divider className={classes.ScuiDividerT24} />
+              <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={onSubmit}
+                validateOnChange={true}
+                validateOnBlur={false}
+              >
+                {(props) => {
+                  const {
+                    values,
+                    touched,
+                    errors,
+                    handleChange,
+                    handleBlur,
+                  } = props;
+                  return (
+                    <Form>
+                      <CardContent className={classes.ScuiCardLargeMainArea}>
+                        <Grid container spacing={2}>
+                          <Grid item xs={12}>
+                            <FormControl
+                              error={
+                                touched.textArea && Boolean(errors.textArea)
+                              }
                               fullWidth
-                              id="messageBody"
-                              value={values.messageBody}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                            />
-                          </FormControl>
+                            >
+                              <TextareaAutosize
+                                className={classes.ScuiTextAreaLarge}
+                                label="review Body"
+                                variant="outlined"
+                                id="messageBody"
+                                rowsMin={26}
+                                aria-label="maximum height"
+                                placeholder="Give me a nice cool review. (max 500 words)"
+                                name="messageBody"
+                                variant="outlined"
+                                fullWidth
+                                id="messageBody"
+                                value={values.messageBody}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                              />
+                            </FormControl>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </CardContent>
-                    <Divider className={classes.Divider10} />
-                    <CardContent>
-                      <Grid item xs={12} className={classes.gridFoot}>
-                        <Typography
-                          variant="h5"
-                          className={classes.TextNotNow}
-                          onClick={() => handleCreateConvModelClose(false)}
-                        >
-                          <Link
-                            to={"/dashboard"}
-                            className={classes.LinkUnderlineRemove}
-                          >
-                            Not Now
-                          </Link>
-                        </Typography>
-                        <Button
-                          variant="contained"
-                          type="submit"
-                          color="primary"
-                          className={classes.ButtonSubmit}
-                          disabled={loading}
-                        >
+                      </CardContent>
+                      <Divider className={classes.ScuiDividerTB8} />
+                      <CardContent>
+                        <Grid item xs={12} className={classes.ScuiGridFooter}>
                           <Typography
-                            variant="h5"
-                            className={classes.TextButtonSubmit}
+                            variant="h6"
+                            onClick={() => handleCreateConvModelClose(false)}
                           >
-                            Review Now
+                            <Link
+                              to={"/dashboard"}
+                              className={classes.ScuiLinkUnderLineRemove}
+                            >
+                              Not Now
+                            </Link>
                           </Typography>
-                        </Button>
-                      </Grid>
-                    </CardContent>
-                  </Form>
-                );
-              }}
-            </Formik>
-          </Card>
-        </Paper>
+                          <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            disabled={loading}
+                          >
+                            <Typography variant="h5">Send</Typography>
+                          </Button>
+                        </Grid>
+                      </CardContent>
+                    </Form>
+                  );
+                }}
+              </Formik>
+            </Card>
+          </Paper>
+        </Box>
       </Grid>
       <Grid item xs={false} xl={3} lg={2} md={2} sm={1} />
     </Grid>
   );
 };
 
-export default withStyles(createConversationMui)(CreateConversation);
+export default withWidth()(withStyles(MuiDistributor)(CreateConversation));
