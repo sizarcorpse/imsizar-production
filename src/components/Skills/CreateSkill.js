@@ -186,7 +186,7 @@ const CreateSkill = (props) => {
             [classes.ScuiCenter]: width === "lg",
           })}
         >
-          <Paper className={classes.PaperMianCotent}>
+          <Paper className={classes.ScuiPaperLarge}>
             <Card className={classes.ScuiCardLarge}>
               <CardHeader
                 title={<Typography variant="h2">Create Skill</Typography>}

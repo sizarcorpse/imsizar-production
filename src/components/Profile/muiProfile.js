@@ -9,6 +9,25 @@ export const createProfileMui = (theme) => ({
     bottom: 150,
     position: "relative",
   },
+
+  cardX: {
+    maxWidth: "100%",
+    padding: "20px 10px",
+    margin: "-98px auto 0",
+    background: "none",
+    position: "relative",
+  },
+
+  newC: {
+    maxWidth: 400,
+    margin: "auto",
+    background: "transparent",
+  },
+
+  hide: {
+    visibility: "hidden",
+  },
+
   //part 1
   CardHeaderProfilePhoto: {
     display: "flex",

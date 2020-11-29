@@ -15,9 +15,10 @@ import { useSnackbar } from "notistack";
 // #validations :
 
 // #material-ui :
+import clsx from "clsx";
+import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { withStyles } from "@material-ui/core/styles";
-import { ScmuiIconText } from "../../customMui/ScmuiIconText";
-import { gellaryMui } from "./muiCreateGallery";
+import { MuiDistributor } from "../../muiTheme/MuiDistributor";
 // import addlogo from "../../assets/add.jpg";
 import {
   FormControl,
@@ -34,19 +35,26 @@ import {
   GridList,
   GridListTile,
   CardMedia,
+  Box,
+  Toolbar,
+  IconButton,
+  TextField,
+  CssBaseline,
+  CircularProgress,
 } from "@material-ui/core";
 import TitleIcon from "@material-ui/icons/Title";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import AddIcon from "@material-ui/icons/Add";
-
+import CloseIcon from "@material-ui/icons/Close";
 const CreateGallery = (props) => {
   const { currentUser } = useAuth();
-  const { classes, handleCreateGalleryModelClose } = props;
+  const { classes, handleCreateGalleryModelClose, width } = props;
   const { enqueueSnackbar } = useSnackbar();
   const [blogPhotos, setBlogPhotos] = useState([]);
   const [previewBlogPhotos, setPreviewBlogPhoto] = useState([]);
   const [galleryPhotoCaption, setGalleryPhotoCaption] = useState("");
   const [loading, setLoading] = useState(false);
+  const [photoUploading, setPhotoUploading] = useState(false);
   const imp = useRef();
 
   // #handlers : Hangle images selected
@@ -85,6 +93,7 @@ const CreateGallery = (props) => {
           "state_changed",
           (snapshot) => {
             // progress
+            setPhotoUploading(true);
           },
           (error) => {
             throw new Error("Something went wrong while uplaoding photo");
@@ -130,6 +139,7 @@ const CreateGallery = (props) => {
           throw new Error("Something went wrong");
         })
         .finally(() => {
+          setPhotoUploading(false);
           handleCreateGalleryModelClose(false);
           setLoading(false);
         });
@@ -141,139 +151,183 @@ const CreateGallery = (props) => {
   };
 
   return (
-    <Grid container component="main" className={classes.main}>
+    <Grid
+      container
+      component="main"
+      className={clsx(classes.ScuiMainContainer, classes.ScuiModalBG)}
+    >
+      <CssBaseline />
+      <Grid item xs={12} xl={12} lg={12} md={12} sm={12}>
+        <Box>
+          <Toolbar className={classes.ScuiModalClose}>
+            <IconButton onClick={() => handleCreateGalleryModelClose(false)}>
+              <CloseIcon />
+            </IconButton>
+          </Toolbar>
+        </Box>
+      </Grid>
+
       <Grid item xs={false} xl={3} lg={3} md={2} sm={1} />
 
       <Grid item xs={12} xl={6} lg={6} md={8} sm={10}>
-        <Paper className={classes.PaperMianCotent}>
-          <Card className={classes.CardMainCard}>
-            <CardHeader
-              title={
-                <Typography variant="h5" className={classes.TextHead}>
-                  Share your memories with us?
-                </Typography>
-              }
-            />
-            <Divider className={classes.Divider25} />
+        <Box
+          className={clsx({
+            [classes.ScuiMiddle]: true,
+            [classes.ScuiBoxFullHeight]: width === "xl",
+            [classes.ScuiCenter]: width === "lg",
+          })}
+        >
+          <Paper className={classes.ScuiPaperLarge}>
+            <Card className={classes.ScuiCardLarge}>
+              <CardHeader
+                title={<Typography variant="h2">Memories</Typography>}
+                subheader={
+                  <Typography variant="h4" color="secondary">
+                    Share your memories with us?
+                  </Typography>
+                }
+              />
+              <Divider className={classes.ScuiDividerT24} />
 
-            <CardContent className={classes.CardContentMain}>
-              <form noValidate>
-                <Grid container spacing={2}>
+              <CardContent className={classes.ScuiCardLargeMainArea}>
+                <form noValidate>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <FormControl error fullWidth>
+                        <TextField
+                          className={classes.margin}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                <TitleIcon />
+                              </InputAdornment>
+                            ),
+                          }}
+                          label="Caption"
+                          variant="outlined"
+                          id="galleryPhotoCaption"
+                          name="galleryPhotoCaption"
+                          onChange={(e) => {
+                            setGalleryPhotoCaption(e.target.value);
+                          }}
+                        />
+                      </FormControl>
+                    </Grid>
+                    {previewBlogPhotos.length > 0 && !loading === true ? (
+                      <Grid
+                        item
+                        xs={12}
+                        className={classes.ScuiPreviewAreaLarge}
+                      >
+                        <GridList
+                          cellHeight={120}
+                          spacing={0}
+                          cols={width === "xs" ? 1 : 5}
+                        >
+                          {previewBlogPhotos.map((pc) => (
+                            <GridListTile cols={1} spacing={0}>
+                              <Link>
+                                <Card className={classes.ScuiCardPreviewPhoto}>
+                                  <CardMedia
+                                    component="img"
+                                    alt="Contemplative Reptile"
+                                    image={pc}
+                                    className={classes.ScuiPreviewPhoto}
+                                  />
+                                </Card>
+                              </Link>
+                            </GridListTile>
+                          ))}
+                          <AddIcon
+                            onClick={() => imp.current.click()}
+                            className={classes.ScuiAddIcon}
+                          />
+                        </GridList>
+                      </Grid>
+                    ) : photoUploading === true ? (
+                      <Grid item xs={12}>
+                        <Box
+                          className={clsx(
+                            classes.ScuiChoosePhotoGridAreaLarge,
+                            classes.ScuiChoosePhotoGrid
+                          )}
+                        >
+                          <CircularProgress />
+                        </Box>
+                      </Grid>
+                    ) : (
+                      <Grid item xs={12}>
+                        <Box
+                          className={clsx(
+                            classes.ScuiChoosePhotoGridAreaLarge,
+                            classes.ScuiChoosePhotoGrid
+                          )}
+                        >
+                          <Button
+                            onClick={() => imp.current.click()}
+                            startIcon={<AddAPhotoIcon />}
+                          >
+                            <Typography variant="h4" color="primary">
+                              Choose Photos
+                            </Typography>
+                          </Button>
+                        </Box>
+                      </Grid>
+                    )}
+                  </Grid>
                   <Grid item xs={12}>
-                    <FormControl error fullWidth>
-                      <ScmuiIconText
-                        className={classes.margin}
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <TitleIcon />
-                            </InputAdornment>
-                          ),
+                    <FormControl fullWidth>
+                      <Input
+                        inputProps={{
+                          className: classes.UpInput,
+                          ref: imp,
+                          multiple: true,
                         }}
-                        label="Caption"
-                        variant="outlined"
-                        id="galleryPhotoCaption"
-                        name="galleryPhotoCaption"
-                        onChange={(e) => {
-                          setGalleryPhotoCaption(e.target.value);
-                        }}
+                        required
+                        name="blogPhotos"
+                        label="blogPhotos"
+                        type="file"
+                        id="blogPhotos"
+                        style={{ visibility: "hidden" }}
+                        onChange={handlePhotoUpload}
                       />
                     </FormControl>
                   </Grid>
-                  {previewBlogPhotos.length > 0 && !loading === true ? (
-                    <Grid item xs={12} className={classes.gridPreviewArea}>
-                      <GridList cellHeight={120} spacing={0} cols={5}>
-                        {previewBlogPhotos.map((pc) => (
-                          <GridListTile cols={1} spacing={0}>
-                            <Link>
-                              <Card className={classes.cardPreviewPhoto}>
-                                <CardMedia
-                                  component="img"
-                                  alt="Contemplative Reptile"
-                                  image={pc}
-                                  className={classes.cardMediaPhoto}
-                                />
-                              </Card>
-                            </Link>
-                          </GridListTile>
-                        ))}
-                        <AddIcon
-                          onClick={() => imp.current.click()}
-                          className={classes.addIcon}
-                        />
-                      </GridList>
-                    </Grid>
-                  ) : (
-                    <Grid item xs={12} className={classes.gridChoosePhoto}>
-                      <Button
-                        onClick={() => imp.current.click()}
-                        className={classes.ButtonuploadImage}
-                      >
-                        <AddAPhotoIcon />
-                        <Typography className={classes.textChooseFile}>
-                          Choose Photos
-                        </Typography>
-                      </Button>
-                    </Grid>
-                  )}
+                </form>
+              </CardContent>
 
-                  <Divider className={classes.Divider25} />
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControl fullWidth>
-                    <Input
-                      inputProps={{
-                        className: classes.UpInput,
-                        ref: imp,
-                        multiple: true,
-                      }}
-                      required
-                      name="blogPhotos"
-                      label="blogPhotos"
-                      type="file"
-                      id="blogPhotos"
-                      className={classes.inputVisibility}
-                      onChange={handlePhotoUpload}
-                    />
-                  </FormControl>
-                </Grid>
-              </form>
-            </CardContent>
-
-            <Divider className={classes.Divider10} />
-            <CardContent>
-              <Grid item xs={12} className={classes.gridFoot}>
-                <Typography
-                  variant="h5"
-                  className={classes.TextNotNow}
-                  onClick={() => handleCreateGalleryModelClose(false)}
-                >
-                  <Link
-                    to={"/dashboard"}
-                    className={classes.LinkUnderlineRemove}
+              <Divider className={classes.ScuiDividerTB8} />
+              <CardContent>
+                <Grid item xs={12} className={classes.ScuiGridFooter}>
+                  <Typography
+                    variant="h6"
+                    onClick={() => handleCreateGalleryModelClose(false)}
                   >
-                    Not now
-                  </Link>
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.ButtonSubmit}
-                  disabled={blogPhotos.length === 0}
-                  onClick={uploadGalleryPhotos}
-                >
-                  <Typography variant="h5" className={classes.TextButtonSubmit}>
-                    Upload Photo
+                    <Link
+                      to={"/dashboard"}
+                      className={classes.ScuiLinkUnderLineRemove}
+                    >
+                      Not now
+                    </Link>
                   </Typography>
-                </Button>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Paper>
+                  <Button
+                    /* type="submit" */
+                    variant="contained"
+                    color="primary"
+                    disabled={blogPhotos.length === 0}
+                    onClick={uploadGalleryPhotos}
+                  >
+                    <Typography variant="h5">Upload Photo</Typography>
+                  </Button>
+                </Grid>
+              </CardContent>
+            </Card>
+          </Paper>
+        </Box>
       </Grid>
       <Grid item xs={false} xl={3} lg={3} md={2} sm={1} />
     </Grid>
   );
 };
 
-export default withStyles(gellaryMui)(CreateGallery);
+export default withWidth()(withStyles(MuiDistributor)(CreateGallery));

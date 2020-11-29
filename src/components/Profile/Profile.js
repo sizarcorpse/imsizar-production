@@ -27,7 +27,9 @@ import {
   Modal,
   Backdrop,
   Fade,
+  Hidden,
 } from "@material-ui/core";
+
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import TelegramIcon from "@material-ui/icons/Telegram";
 import InfoIcon from "@material-ui/icons/Info";
@@ -42,7 +44,7 @@ import clsx from "clsx";
 
 const Profile = (props) => {
   const { currentUser } = useAuth();
-  const { classes } = props;
+  const { classes, width } = props;
   const [profile, setProfile] = useState("");
   const [loading, setLoading] = useState(false);
   const [featuredSkills, setFeaturedSkills] = useState([]);
@@ -113,200 +115,227 @@ const Profile = (props) => {
   };
 
   return (
-    <Card className={classes.card}>
+    <Card
+      className={clsx({
+        [classes.card]: width === "xl" || width === "lg" || width === "md",
+        [classes.cardX]: width === "sm" || width === "xs",
+      })}
+    >
       <Grid container spacing={0}>
-        <Grid item xs={12}>
-          <CardHeader
-            className={classes.CardHeaderProfilePhoto}
-            avatar={
-              <Avatar
-                aria-label="recipe"
-                className={classes.AvatarProfilePhoto}
-              >
-                <img
-                  src={profile.profilePhoto}
-                  alt=""
-                  className={classes.AvatarProfilePhotoImage}
-                />
-              </Avatar>
-            }
-          />
-        </Grid>
-        <Grid item xs={12} className={classes.GridProfileDetails}>
-          <CardHeader
-            className={classes.CardHeaderProfileDetails}
-            title={
-              <Typography variant="h5" className={classes.TextHead}>
-                {profile.profileName}
-              </Typography>
-            }
-            subheader={
-              <>
-                <Typography variant="h5" className={classes.TextNeck}>
-                  {profile.profileHeadline}
-                </Typography>
-                <Box className={classes.CardSubheaderProfileDetails}>
-                  <LocationOnIcon className={classes.LocationIcon} />
-                  <Typography variant="h5" className={classes.TextNeckLocation}>
-                    {profile.profileLocation}, {profile.profileCountry}
-                  </Typography>
-                </Box>
-              </>
-            }
-          />
-        </Grid>
-        <CardContent className={classes.CardContentCotact}>
-          <Grid container spacing={1}>
-            <Grid item xs={6}>
-              <Button
-                variant="outlined"
-                color="primary"
-                fullWidth
-                startIcon={<InfoIcon className={classes.ButtonIconColor} />}
-                onClick={handleContactMeModelOpen}
-              >
-                <Typography variant="h5" className={classes.ButtonText}>
-                  Contact Me
-                </Typography>
-              </Button>
-            </Grid>
-            <Grid item xs={6}>
-              <Button
-                variant="outlined"
-                color="primary"
-                fullWidth
-                startIcon={<TelegramIcon className={classes.ButtonIconColor} />}
-                onClick={handleCreateConvModelOpen}
-              >
-                <Typography variant="h5" className={classes.ButtonText}>
-                  Message
-                </Typography>
-              </Button>
-            </Grid>
-            <Grid item xs={12} className={classes.GridProfileDetails}>
-              {profile.facebook && (
-                <IconButton
-                  onClick={() => (window.location.href = profile.facebook)}
+        <Box
+          className={clsx({
+            [classes.newC]: width === "sm" || width === "xs",
+          })}
+        >
+          <Grid item xs={12}>
+            <CardHeader
+              className={classes.CardHeaderProfilePhoto}
+              avatar={
+                <Avatar
+                  aria-label="recipe"
+                  className={classes.AvatarProfilePhoto}
                 >
-                  <FacebookIcon className={classes.IconContact} />
-                </IconButton>
-              )}
-              {profile.github && (
-                <IconButton
-                  onClick={() => (window.location.href = profile.github)}
-                >
-                  <GitHubIcon className={classes.IconContact} />
-                </IconButton>
-              )}
-              {profile.twitter && (
-                <IconButton
-                  onClick={() => (window.location.href = profile.twitter)}
-                >
-                  <TwitterIcon className={classes.IconContact} />
-                </IconButton>
-              )}
-              {profile.linkedin && (
-                <IconButton
-                  onClick={() => (window.location.href = profile.linkedin)}
-                >
-                  <LinkedInIcon className={classes.IconContact} />
-                </IconButton>
-              )}
-              {profile.profileWebsite && (
-                <IconButton
-                  onClick={() =>
-                    (window.location.href = profile.profileWebsite)
-                  }
-                >
-                  <LanguageIcon className={classes.IconContact} />
-                </IconButton>
-              )}
-            </Grid>
+                  <img
+                    src={profile.profilePhoto}
+                    alt=""
+                    className={classes.AvatarProfilePhotoImage}
+                  />
+                </Avatar>
+              }
+            />
           </Grid>
-          <Modal
-            className={classes.modal}
-            open={contactMeModelOpen}
-            onClose={handleContactMeModelClose}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
+          <Grid
+            item
+            xs={12}
+            className={classes.GridProfileDetails}
+            style={{ background: "white" }}
           >
-            <Fade in={contactMeModelOpen}>
-              <div className={classes.paper}>
-                <Contact
-                  handleContactMeModelClose={handleContactMeModelClose}
-                />
-              </div>
-            </Fade>
-          </Modal>
-
-          <Modal
-            className={classes.modal}
-            open={createConvModelOpen}
-            onClose={handleCreateConvModelClose}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
+            <CardHeader
+              className={classes.CardHeaderProfileDetails}
+              title={
+                <Typography variant="h5" className={classes.TextHead}>
+                  {profile.profileName}
+                </Typography>
+              }
+              subheader={
+                <>
+                  <Typography variant="h5" className={classes.TextNeck}>
+                    {profile.profileHeadline}
+                  </Typography>
+                  <Box className={classes.CardSubheaderProfileDetails}>
+                    <LocationOnIcon className={classes.LocationIcon} />
+                    <Typography
+                      variant="h5"
+                      className={classes.TextNeckLocation}
+                    >
+                      {profile.profileLocation}, {profile.profileCountry}
+                    </Typography>
+                  </Box>
+                </>
+              }
+            />
+          </Grid>
+          <CardContent
+            className={classes.CardContentCotact}
+            style={{ background: "white" }}
           >
-            <Fade in={createConvModelOpen}>
-              <div className={classes.paper}>
-                <CreateConversation
-                  handleCreateConvModelClose={handleCreateConvModelClose}
-                />
-              </div>
-            </Fade>
-          </Modal>
-          <Divider className={classes.Divider20} />
-        </CardContent>
+            <Grid container spacing={1}>
+              <Grid item xs={6}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  fullWidth
+                  startIcon={<InfoIcon className={classes.ButtonIconColor} />}
+                  onClick={handleContactMeModelOpen}
+                >
+                  <Typography variant="h5" className={classes.ButtonText}>
+                    Contact Me
+                  </Typography>
+                </Button>
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  fullWidth
+                  startIcon={
+                    <TelegramIcon className={classes.ButtonIconColor} />
+                  }
+                  onClick={handleCreateConvModelOpen}
+                >
+                  <Typography variant="h5" className={classes.ButtonText}>
+                    Message
+                  </Typography>
+                </Button>
+              </Grid>
+              <Grid item xs={12} className={classes.GridProfileDetails}>
+                {profile.facebook && (
+                  <IconButton
+                    onClick={() => (window.location.href = profile.facebook)}
+                  >
+                    <FacebookIcon className={classes.IconContact} />
+                  </IconButton>
+                )}
+                {profile.github && (
+                  <IconButton
+                    onClick={() => (window.location.href = profile.github)}
+                  >
+                    <GitHubIcon className={classes.IconContact} />
+                  </IconButton>
+                )}
+                {profile.twitter && (
+                  <IconButton
+                    onClick={() => (window.location.href = profile.twitter)}
+                  >
+                    <TwitterIcon className={classes.IconContact} />
+                  </IconButton>
+                )}
+                {profile.linkedin && (
+                  <IconButton
+                    onClick={() => (window.location.href = profile.linkedin)}
+                  >
+                    <LinkedInIcon className={classes.IconContact} />
+                  </IconButton>
+                )}
+                {profile.profileWebsite && (
+                  <IconButton
+                    onClick={() =>
+                      (window.location.href = profile.profileWebsite)
+                    }
+                  >
+                    <LanguageIcon className={classes.IconContact} />
+                  </IconButton>
+                )}
+              </Grid>
+            </Grid>
+            <Modal
+              className={classes.modal}
+              open={contactMeModelOpen}
+              onClose={handleContactMeModelClose}
+              closeAfterTransition
+              BackdropComponent={Backdrop}
+              BackdropProps={{
+                timeout: 500,
+              }}
+            >
+              <Fade in={contactMeModelOpen}>
+                <div className={classes.paper}>
+                  <Contact
+                    handleContactMeModelClose={handleContactMeModelClose}
+                  />
+                </div>
+              </Fade>
+            </Modal>
 
-        <CardContent>
-          {featuredSkills &&
-            featuredSkills
-              .slice(0, 1)
-              .map((fsk, i) => <FeaturedSkillCard fsk={fsk} />)}
-        </CardContent>
+            <Modal
+              className={classes.modal}
+              open={createConvModelOpen}
+              onClose={handleCreateConvModelClose}
+              closeAfterTransition
+              BackdropComponent={Backdrop}
+              BackdropProps={{
+                timeout: 500,
+              }}
+            >
+              <Fade in={createConvModelOpen}>
+                <div className={classes.paper}>
+                  <CreateConversation
+                    handleCreateConvModelClose={handleCreateConvModelClose}
+                  />
+                </div>
+              </Fade>
+            </Modal>
+            <Divider className={classes.Divider20} />
+          </CardContent>
+        </Box>
 
-        <CardActions className={classes.ButtonExpand}>
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded,
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Hidden smDown="true">
           <CardContent>
             {featuredSkills &&
               featuredSkills
-                .slice(1)
+                .slice(0, 1)
                 .map((fsk, i) => <FeaturedSkillCard fsk={fsk} />)}
           </CardContent>
-        </Collapse>
-        <Grid container>
-          <CardContent>
-            <Grid item xs={12} className={classes.GridBio}>
-              <Typography variant="h5" className={classes.TextNeckBio}>
-                About me
-              </Typography>
-            </Grid>
-            <Grid item xs={12} className={classes.GridBio}>
-              <Typography
-                variant="body1"
-                coponent="p"
-                className={classes.TextNeckBioDetails}
-              >
-                {profile.profileAboutMe}
-              </Typography>
-            </Grid>
-          </CardContent>
-        </Grid>
+
+          <CardActions className={classes.ButtonExpand}>
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: expanded,
+              })}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardActions>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              {featuredSkills &&
+                featuredSkills
+                  .slice(1)
+                  .map((fsk, i) => <FeaturedSkillCard fsk={fsk} />)}
+            </CardContent>
+          </Collapse>
+
+          <Grid container>
+            <CardContent>
+              <Grid item xs={12} className={classes.GridBio}>
+                <Typography variant="h5" className={classes.TextNeckBio}>
+                  About me
+                </Typography>
+              </Grid>
+              <Grid item xs={12} className={classes.GridBio}>
+                <Typography
+                  variant="body1"
+                  coponent="p"
+                  className={classes.TextNeckBioDetails}
+                >
+                  {profile.profileAboutMe}
+                </Typography>
+              </Grid>
+            </CardContent>
+          </Grid>
+        </Hidden>
       </Grid>
     </Card>
   );

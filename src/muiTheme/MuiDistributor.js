@@ -177,6 +177,7 @@ export const MuiDistributor = (theme) => ({
     },
   },
 
+  // #action :
   // Text Area
   ScuiTextAreaSmall: {
     maxWidth: "100%",
@@ -239,10 +240,10 @@ export const MuiDistributor = (theme) => ({
   },
 
   //
-  CardContentMain: {
-    height: 550,
-    maxHeight: 550,
-  },
+  // CardContentMain: {
+  //   height: 550,
+  //   maxHeight: 550,
+  // },
 
   //
   cardpreview: {
@@ -250,5 +251,56 @@ export const MuiDistributor = (theme) => ({
     maxWidth: 320,
     maxHeight: 300,
     margin: "auto auto",
+  },
+
+  //blog
+  ScuiChoosePhotoGrid: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  ScuiChoosePhotoGridAreaSmall: {
+    height: 90,
+    maxHeight: 90,
+  },
+  ScuiChoosePhotoGridAreaMedium: {
+    height: 200,
+    maxHeight: 200,
+  },
+  ScuiChoosePhotoGridAreaLarge: {
+    height: 450,
+    maxHeight: 450,
+  },
+
+  ScuiPreviewArea: {
+    overflow: "auto",
+    maxHeight: 140,
+  },
+  ScuiPreviewAreaLarge: {
+    overflow: "auto",
+    maxHeight: 450,
+  },
+
+  ScuiCardPreviewPhoto: {
+    maxHeight: 120,
+    minHeight: 120,
+    maxWidth: 120,
+    margin: theme.spacing(1),
+    padding: 0,
+    background:
+      "linear-gradient(90deg, rgba(246,246,246,1) 7%, rgba(240,242,244,1) 26%, rgba(247,247,247,1) 66%, rgba(249,248,245,1) 100%)",
+  },
+
+  ScuiPreviewPhoto: {
+    maxHeight: 120,
+    maxWidth: 120,
+    height: 120,
+    width: "100%",
+    objectFit: "cover",
+  },
+
+  ScuiAddIcon: {
+    cursor: "pointer",
+    color: "rgb(227,227,227)",
   },
 });

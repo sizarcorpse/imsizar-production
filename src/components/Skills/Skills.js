@@ -54,6 +54,8 @@ function Skills(props) {
     });
   }
 
+  console.log("widthwidthwidth", width);
+
   const deleteSkill = async (skillID) => {
     if (currentUser.admin === true) {
       const db = app.firestore();
