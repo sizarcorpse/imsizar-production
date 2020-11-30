@@ -4,7 +4,7 @@ export const createProfileMui = (theme) => ({
     padding: "20px 10px",
     paddingBottom: 100,
     backgroundColor: theme.palette.paper,
-    margin: "auto auto",
+    // margin: "auto auto",   // 4k
     backgroundOpacity: 0.5,
     bottom: 150,
     position: "relative",
@@ -22,7 +22,6 @@ export const createProfileMui = (theme) => ({
     maxWidth: 400,
     margin: "auto",
     background: "none",
-    boxShadow: "none",
   },
 
   hide: {

@@ -7,7 +7,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import clsx from "clsx";
 import { MuiDistributor } from "../../muiTheme/MuiDistributor";
 import { withStyles } from "@material-ui/core/styles";
-import { reviewsMui } from "./muiReviews";
+
 import {
   Avatar,
   Typography,
@@ -18,9 +18,6 @@ import {
   CardHeader,
   Grid,
   CardContent,
-  Divider,
-  Hidden,
-  CssBaseline,
 } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -49,81 +46,84 @@ const ReviewCommentsCard = (props) => {
       onMouseLeave={() => setShowOption(false)}
     >
       <Grid container spacing={0}>
-        <Grid item xs={12} className={classes.more}>
-          <CardHeader
-            className={classes.cardC}
-            avatar={
-              <Avatar className={classes.ScuiAvaterSmall}>
-                <img
-                  src={comment.commenterPhotoUrl}
-                  alt=""
-                  className={classes.ScuiAvayerSmallImage}
-                />
-              </Avatar>
-            }
-            title={
-              <Box
-                className={clsx({
-                  [classes.ScuiCommentHead]: width !== "xs",
-                  [classes.ScuiCommentHeadXs]: width === "xs",
-                })}
-              >
-                <Typography variant="subtitle1">{comment.commenter}</Typography>
-                <Typography
-                  variant="body2"
-                  color="secondary"
-                  style={{ margin: "auto 10px" }}
+        <Grid item xs={12}>
+          <Box>
+            <CardHeader
+              avatar={
+                <Avatar className={classes.ScuiAvaterSmall}>
+                  <img
+                    src={comment.commenterPhotoUrl}
+                    alt=""
+                    className={classes.ScuiAvayerSmallImage}
+                  />
+                </Avatar>
+              }
+              title={
+                <Box
+                  className={clsx({
+                    [classes.ScuiCommentHead]: width !== "xs",
+                    [classes.ScuiCommentHeadXs]: width === "xs",
+                  })}
                 >
-                  {formatDistanceToNowStrict(
-                    new Date(comment.reviewCommentCreatedAt),
-                    { addSuffix: true }
-                  )}
-                </Typography>
-              </Box>
-            }
-            action={
-              <Box>
-                {showOption && (
-                  <IconButton
-                    className={classes.ScuiCommentIconButton}
-                    onClick={handleMenuOpen}
+                  <Typography variant="subtitle1">
+                    {comment.commenter}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="secondary"
+                    style={{ margin: "auto 10px" }}
                   >
-                    <MoreHorizIcon />
+                    {formatDistanceToNowStrict(
+                      new Date(comment.reviewCommentCreatedAt),
+                      { addSuffix: true }
+                    )}
+                  </Typography>
+                </Box>
+              }
+              action={
+                <Box>
+                  {showOption && (
+                    <IconButton
+                      className={classes.ScuiCommentIconButton}
+                      onClick={handleMenuOpen}
+                    >
+                      <MoreHorizIcon />
+                    </IconButton>
+                  )}
+                  <IconButton className={classes.ScuiCommentIconButton}>
+                    <FavoriteIcon className={classes.ScuiCommentIconSize} />
                   </IconButton>
-                )}
-                <IconButton className={classes.IconButton}>
-                  <FavoriteIcon className={classes.ScuiCommentIconSize} />
-                </IconButton>
-              </Box>
-            }
-          />
-          <Menu
-            anchorEl={menuOpen}
-            open={Boolean(menuOpen)}
-            onClose={handleMenuClose}
-            className={classes.ScuiMenuComment}
-          >
-            <IconButton>
-              <ThumbUpAltIcon className={classes.ScuiCommentIconSize} />
-            </IconButton>
-            {currentUser && currentUser.uid === comment.commenterID ? (
-              <>
-                <IconButton>
-                  <EditIcon className={classes.ScuiCommentIconSize} />
-                </IconButton>
-                <IconButton
-                  onClick={() => {
-                    deleteReviewComment(
-                      comment.reviewCommentID,
-                      comment.commenterID
-                    );
-                  }}
-                >
-                  <DeleteIcon className={classes.ScuiCommentIconSize} />
-                </IconButton>
-              </>
-            ) : null}
-          </Menu>
+                </Box>
+              }
+            />
+            <Menu
+              anchorEl={menuOpen}
+              open={Boolean(menuOpen)}
+              onClose={handleMenuClose}
+              className={classes.ScuiMenuComment}
+            >
+              <IconButton>
+                <ThumbUpAltIcon className={classes.ScuiCommentIconSize} />
+              </IconButton>
+              {currentUser && currentUser.uid === comment.commenterID ? (
+                <>
+                  <IconButton>
+                    <EditIcon className={classes.ScuiCommentIconSize} />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => {
+                      deleteReviewComment(
+                        comment.reviewCommentID,
+                        comment.commenterID
+                      );
+                    }}
+                  >
+                    <DeleteIcon className={classes.ScuiCommentIconSize} />
+                  </IconButton>
+                </>
+              ) : null}
+            </Menu>
+          </Box>
         </Grid>
         <Grid item xs={12}>
           <Box className={classes.ScuiCommentBodyBox}>
@@ -132,7 +132,7 @@ const ReviewCommentsCard = (props) => {
                 {comment.reviewCommentBody}
               </Typography>
             </CardContent>
-          </Box>{" "}
+          </Box>
         </Grid>
       </Grid>
     </Card>

@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from "react";
-import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { v4 as uuidv4 } from "uuid";
@@ -23,8 +22,10 @@ import { useSnackbar } from "notistack";
 import { validationSchema } from "./BlogCommentFormValidations";
 
 // #material-ui :
+import clsx from "clsx";
+import { MuiDistributor } from "../../muiTheme/MuiDistributor";
 import { withStyles } from "@material-ui/core/styles";
-import { blogPostMui } from "./muiBlogPosts";
+
 import {
   Card,
   CardHeader,
@@ -46,7 +47,7 @@ import {
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import CommentIcon from "@material-ui/icons/Comment";
 import SendIcon from "@material-ui/icons/Send";
 
 const BlogPostCard = (props) => {
@@ -229,18 +230,14 @@ const BlogPostCard = (props) => {
   };
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.ScuiContentCard}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
+          <Avatar className={classes.ScuiAvaterMedium}>
             <img
               src={blogPost.blogCreatorPhotoUrl}
               alt=""
-              style={{
-                height: 60,
-                width: "100%",
-                objectFit: "cover",
-              }}
+              className={classes.ScuiAvayerMediumImage}
             />
           </Avatar>
         }
@@ -255,7 +252,10 @@ const BlogPostCard = (props) => {
                 anchorEl={menuOpen}
                 open={Boolean(menuOpen)}
                 onClose={handleMenuClose}
-                className={classes.menu}
+                className={clsx(
+                  classes.ScuiMenuSmall,
+                  classes.ScuiMenuSmallPaddingReview
+                )}
               >
                 {blogPost.blogCreatorID === currentUser.uid ||
                 currentUser.admin === true ? (
@@ -294,23 +294,19 @@ const BlogPostCard = (props) => {
                         );
                       }}
                     >
-                      <Typography variant="p" className={classes.neckText2}>
-                        Delete
-                      </Typography>
+                      <Typography variant="h5">Delete</Typography>
                     </MenuItem>
                   </>
                 ) : null}
                 <MenuItem onClick={handleMenuClose}>
-                  <Typography variant="p" className={classes.neckText2}>
-                    Report
-                  </Typography>
+                  <Typography variant="h5">Report</Typography>
                 </MenuItem>
               </Menu>
             )}
           </Box>
         }
         title={
-          <Typography variant="h5" className={classes.headText}>
+          <Typography variant="caption" color="primary">
             {blogPost.blogCreatorDisplayName}
           </Typography>
         }
@@ -319,7 +315,7 @@ const BlogPostCard = (props) => {
             {/* <Typography variant="h5" className={classes.neckText}>
               {review.reviewID}
             </Typography> */}
-            <Typography variant="h5" className={classes.neckText2}>
+            <Typography variant="h5">
               {formatDistanceToNow(new Date(blogPost.blogPostCreatedAt))}
             </Typography>
           </>
@@ -327,20 +323,11 @@ const BlogPostCard = (props) => {
       />
 
       <CardContent>
-        <Divider
-          style={{
-            marginTop: "5px",
-            marginBottom: "30px",
-          }}
-        />
-        <Typography
-          variant="body1"
-          color="textPrimary"
-          component="p"
-          style={{ whiteSpace: "pre-line" }}
-        >
-          {blogPost.blogBody}
-        </Typography>
+        <Box mb={2}>
+          <Typography variant="body1" color="textPrimary">
+            {blogPost.blogBody}
+          </Typography>
+        </Box>
         {photosz ? (
           <Box className={classes.modelx}>
             <Gallery
@@ -375,12 +362,7 @@ const BlogPostCard = (props) => {
         ) : (
           <p>no photo</p>
         )}
-        <Divider
-          style={{
-            marginTop: "30px",
-            marginBottom: "5px",
-          }}
-        />{" "}
+        <Divider className={classes.ScuiDividerT24} />
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
@@ -397,7 +379,7 @@ const BlogPostCard = (props) => {
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <ExpandMoreIcon />
+          <CommentIcon />
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -427,7 +409,7 @@ const BlogPostCard = (props) => {
                       <Grid item xs={isText ? 11 : 12}>
                         <FormControl error fullWidth>
                           <TextareaAutosize
-                            className={classes.textAreax}
+                            className={classes.ScuiTextAreaSmall}
                             label="Comment"
                             variant="outlined"
                             id="blogCommentBody"
@@ -446,7 +428,6 @@ const BlogPostCard = (props) => {
                               variant="contained"
                               type="submit"
                               color="primary"
-                              className={classes.ButtonSubmit}
                             >
                               <SendIcon />
                             </IconButton>
@@ -459,18 +440,19 @@ const BlogPostCard = (props) => {
               }}
             </Formik>
           ) : null}
-
-          {blogsComments &&
-            blogsComments.map((comment) => (
-              <BlogsCommentsCard
-                comment={comment}
-                deleteBlogComment={deleteBlogComment}
-              />
-            ))}
+          <Box mt={2}>
+            {blogsComments &&
+              blogsComments.map((comment) => (
+                <BlogsCommentsCard
+                  comment={comment}
+                  deleteBlogComment={deleteBlogComment}
+                />
+              ))}
+          </Box>
         </CardContent>
       </Collapse>
     </Card>
   );
 };
 
-export default withStyles(blogPostMui)(BlogPostCard);
+export default withStyles(MuiDistributor)(BlogPostCard);

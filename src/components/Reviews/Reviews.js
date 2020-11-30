@@ -26,6 +26,7 @@ import {
   IconButton,
   Paper,
   CssBaseline,
+  Box,
 } from "@material-ui/core";
 import ImportExportIcon from "@material-ui/icons/ImportExport";
 
@@ -119,21 +120,15 @@ const Reviews = (props) => {
   return (
     <Grid container component="main">
       <CssBaseline />
-      <Grid
-        item
-        xl={12}
-        lg={12}
-        md={12}
-        sm={12}
-        xs={12}
-        style={{ display: "flex", justifyContent: "flex-end" }}
-      >
-        <Toolbar style={{ minHeight: 15, paddingRight: 0 }}>
-          <Sort setSortValue={setSortValue} />
-          <IconButton style={{ right: 29 }} onClick={descAsc}>
-            <ImportExportIcon style={{ fontSize: 20, color: "#1d2d50" }} />
-          </IconButton>
-        </Toolbar>
+      <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+        <Box display="flex" justifyContent="flex-end">
+          <Toolbar style={{ minHeight: 15, paddingRight: 0 }}>
+            <Sort setSortValue={setSortValue} />
+            <IconButton style={{ right: 29 }} onClick={descAsc}>
+              <ImportExportIcon style={{ fontSize: 20, color: "#1d2d50" }} />
+            </IconButton>
+          </Toolbar>
+        </Box>
       </Grid>
 
       <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>

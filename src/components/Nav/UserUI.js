@@ -62,20 +62,16 @@ const UserUI = (props) => {
 
   return (
     <Toolbar className={classes.toolbar}>
-      <Typography
-        variant="h6"
-        color="inherit"
-        noWrap
-        className={classes.toolbarTitle}
-      >
-        User
-      </Typography>
+      <Link variant="button" to={"/dashboard"} className={classes.toolbarTitle}>
+        <Badge aria-label="delete">
+          <HomeIcon style={{ color: "#132743" }} />
+        </Badge>
+      </Link>
 
       <Box style={{ marginRight: 20 }}>
         {currentUser ? (
           <>
             <Button
-              variant="outlined"
               color="primary"
               startIcon={<TelegramIcon />}
               style={{ marginRight: 20 }}
@@ -103,16 +99,6 @@ const UserUI = (props) => {
                 </div>
               </Fade>
             </Modal>
-
-            <Link
-              variant="button"
-              to={"/dashboard"}
-              className={classes.navLink}
-            >
-              <Badge aria-label="delete">
-                <HomeIcon style={{ color: "#132743" }} />
-              </Badge>
-            </Link>
 
             <Link variant="button" to={"/inbox"} className={classes.navLink}>
               <Badge color="secondary" badgeContent={12}>

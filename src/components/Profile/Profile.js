@@ -120,6 +120,7 @@ const Profile = (props) => {
         [classes.card]: width === "xl" || width === "lg" || width === "md",
         [classes.cardX]: width === "sm" || width === "xs",
       })}
+      elevation={width === "sm" || width === "xs" ? 0 : 1}
     >
       <Grid container spacing={0}>
         <Box

@@ -7,8 +7,8 @@ export const skillCardMui = (theme) => ({
     background: "#353535",
     fontSize: "3rem",
     color: "#fff",
-    boxShadow:
-      "rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem, rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem",
+    // boxShadow:
+    //   "rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem, rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem",
     height: "100%",
     width: " 100%",
     bordeRadius: 5,

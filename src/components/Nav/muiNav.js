@@ -24,6 +24,13 @@ export const navMui = (theme) => ({
   toolbarTitle: {
     flexGrow: 1,
   },
+  navBarAppBox: {
+    margin: "0px 24px",
+  },
+  navBarApp: {
+    margin: "0px 8px",
+  },
+
   link: {
     margin: theme.spacing(0, 0),
     color: "",

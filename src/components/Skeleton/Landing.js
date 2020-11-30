@@ -4,7 +4,6 @@ import Profile from "../Profile/Profile";
 import UserProfile from "../Profile/UserProfile";
 
 import { Grid, Hidden, Box, CssBaseline } from "@material-ui/core";
-
 import bgsvg from "../../assets/bgsvg.svg";
 import vb from "../../assets/background.svg";
 

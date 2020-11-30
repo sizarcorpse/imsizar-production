@@ -157,10 +157,10 @@ const SkillCard = (props) => {
               className={classes.CardHeader}
               subheader={
                 <>
-                  <Typography variant="subtitle1" color="secondary">
+                  <Typography variant="subtitle1" style={{ color: "#f9f7f7" }}>
                     {skill.skillPlatform} | {skill.skillExperiance}
                   </Typography>
-                  <Typography variant="subtitle2" color="secondary">
+                  <Typography variant="subtitle2" style={{ color: "#f9f7f7" }}>
                     {skill.skillDescription}
                   </Typography>
                 </>

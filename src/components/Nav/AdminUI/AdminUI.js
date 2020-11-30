@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 import AccountPopupMenu from "./AccountPopupMenu";
 import CreateContentPopupMenu from "./CreateContentPopupMenu";
 
+import clsx from "clsx";
 import { navMui } from "../muiNav";
+import withWidth from "@material-ui/core/withWidth";
 import { withStyles } from "@material-ui/core/styles";
 import {
   Button,
@@ -14,15 +16,16 @@ import {
   Badge,
   Avatar,
   Box,
+  Hidden,
 } from "@material-ui/core";
 
-import DashboardIcon from "@material-ui/icons/Dashboard";
+import RemoveFromQueueIcon from "@material-ui/icons/RemoveFromQueue";
 import HomeIcon from "@material-ui/icons/Home";
 import MailIcon from "@material-ui/icons/Mail";
 import AppsIcon from "@material-ui/icons/Apps";
 
 const AdminUI = (props) => {
-  const { classes } = props;
+  const { classes, width } = props;
   const { currentUser, logout } = useAuth();
   const [error, setError] = useState("");
 
@@ -53,48 +56,48 @@ const AdminUI = (props) => {
   return (
     <>
       <Toolbar className={classes.toolbar}>
-        <Typography
-          variant="h6"
-          color="inherit"
-          noWrap
+        <Link
+          variant="button"
+          to={"/dashboard"}
           className={classes.toolbarTitle}
         >
-          Admin
-        </Typography>
+          <Badge>
+            <HomeIcon style={{ color: "#132743" }} />
+          </Badge>
+        </Link>
 
-        <Box style={{ marginRight: 20 }}>
+        <Box className={classes.navBarAppBox}>
           {currentUser.admin ? (
             <>
               <Button
                 color="primary"
                 startIcon={<AppsIcon />}
-                style={{ marginRight: 20, cursor: "pointer" }}
+                style={{ cursor: "pointer" }}
                 onMouseOver={handleContentMenuOpen}
                 onClose={handleContentMenuClose}
+                className={classes.navBarApp}
               >
-                <Typography variant="h5" className={classes.submitButtonText}>
-                  Explore Imagination
-                </Typography>
+                <Hidden only="xs">
+                  <Typography variant="h4">Explore Imagination</Typography>
+                </Hidden>
               </Button>
 
-              <Link variant="button" to={"/admin"} className={classes.link}>
-                <Badge aria-label="delete">
-                  <DashboardIcon
-                    style={{ color: "#132743", marginRight: 10 }}
-                  />
-                </Badge>
-              </Link>
               <Link
                 variant="button"
-                to={"/dashboard"}
-                className={classes.navLink}
+                to={"/admin"}
+                className={classes.navBarApp}
               >
                 <Badge aria-label="delete">
-                  <HomeIcon style={{ color: "#132743" }} />
+                  <RemoveFromQueueIcon style={{ color: "#132743" }} />
                 </Badge>
               </Link>
-              <Link variant="button" to={"/inbox"} className={classes.navLink}>
-                <Badge color="secondary" badgeContent={12}>
+
+              <Link
+                variant="button"
+                to={"/inbox"}
+                className={classes.navBarApp}
+              >
+                <Badge color="secondary">
                   <MailIcon style={{ color: "#132743" }} />
                 </Badge>
               </Link>
@@ -134,4 +137,4 @@ const AdminUI = (props) => {
   );
 };
 
-export default withStyles(navMui)(AdminUI);
+export default withWidth()(withStyles(navMui)(AdminUI));

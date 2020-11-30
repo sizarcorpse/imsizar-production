@@ -26,7 +26,7 @@ import { validationSchema } from "./ReviewCommentFormValidations";
 import clsx from "clsx";
 import { MuiDistributor } from "../../muiTheme/MuiDistributor";
 import { withStyles } from "@material-ui/core/styles";
-import { reviewsMui } from "./muiReviews";
+
 import {
   Card,
   CardHeader,
@@ -46,7 +46,6 @@ import {
   TextareaAutosize,
   FormControl,
   Box,
-  CssBaseline,
 } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -386,7 +385,6 @@ const ReviewCard = (props) => {
                               variant="contained"
                               type="submit"
                               color="primary"
-                              className={classes.ButtonSubmit}
                             >
                               <SendIcon />
                             </IconButton>

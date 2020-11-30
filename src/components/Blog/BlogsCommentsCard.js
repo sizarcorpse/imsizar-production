@@ -4,8 +4,10 @@ import { formatDistanceToNow, formatDistanceToNowStrict } from "date-fns";
 import { useAuth } from "../../contexts/AuthContext";
 
 // #material-ui :
+import clsx from "clsx";
+import { MuiDistributor } from "../../muiTheme/MuiDistributor";
 import { withStyles } from "@material-ui/core/styles";
-import { blogPostMui } from "./muiBlogPosts";
+
 import {
   Avatar,
   Typography,
@@ -16,7 +18,6 @@ import {
   CardHeader,
   Grid,
   CardContent,
-  Divider,
 } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -25,7 +26,7 @@ import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import EditIcon from "@material-ui/icons/Edit";
 
 const BlogsCommentsCard = (props) => {
-  const { classes, comment, deleteBlogComment } = props;
+  const { classes, comment, deleteBlogComment, width } = props;
   const { currentUser } = useAuth();
   const [showOption, setShowOption] = useState(false);
 
@@ -40,28 +41,35 @@ const BlogsCommentsCard = (props) => {
   };
   return (
     <Card
-      className={classes.cardC}
+      className={classes.ScuiCommentCard}
       onMouseEnter={() => setShowOption(true)}
       onMouseLeave={() => setShowOption(false)}
     >
       <Grid container spacing={0}>
-        <Grid item xs={12} className={classes.more}>
+        <Grid item xs={12}>
           <CardHeader
             avatar={
-              <Avatar aria-label="recipe" className={classes.avatarC}>
+              <Avatar className={classes.ScuiAvaterSmall}>
                 <img
                   src={comment.commenterPhotoUrl}
                   alt=""
-                  style={{ height: 50 }}
+                  className={classes.ScuiAvayerSmallImage}
                 />
               </Avatar>
             }
             title={
-              <Box className={classes.header}>
-                <Typography variant="h5" className={classes.headTextC}>
-                  {comment.commenter}
-                </Typography>
-                <Typography variant="h5" className={classes.neckTextC}>
+              <Box
+                className={clsx({
+                  [classes.ScuiCommentHead]: width !== "xs",
+                  [classes.ScuiCommentHeadXs]: width === "xs",
+                })}
+              >
+                <Typography variant="subtitle1">{comment.commenter}</Typography>
+                <Typography
+                  variant="body2"
+                  color="secondary"
+                  style={{ margin: "auto 10px" }}
+                >
                   {formatDistanceToNowStrict(
                     new Date(comment.blogCommentCreatedAt),
                     { addSuffix: true }
@@ -73,14 +81,14 @@ const BlogsCommentsCard = (props) => {
               <Box>
                 {showOption && (
                   <IconButton
-                    className={classes.IconButton}
+                    className={classes.ScuiCommentIconButton}
                     onClick={handleMenuOpen}
                   >
-                    <MoreHorizIcon className={classes.IconDelete} />
+                    <MoreHorizIcon className={classes.ScuiCommentIconSize} />
                   </IconButton>
                 )}
-                <IconButton className={classes.IconButton}>
-                  <FavoriteIcon className={classes.IconDelete} />
+                <IconButton className={classes.ScuiCommentIconButton}>
+                  <FavoriteIcon className={classes.ScuiCommentIconSize} />
                 </IconButton>
               </Box>
             }
@@ -89,15 +97,15 @@ const BlogsCommentsCard = (props) => {
             anchorEl={menuOpen}
             open={Boolean(menuOpen)}
             onClose={handleMenuClose}
-            className={classes.menuComment}
+            className={classes.ScuiMenuComment}
           >
             <IconButton>
-              <ThumbUpAltIcon className={classes.IconDelete} />
+              <ThumbUpAltIcon className={classes.ScuiCommentIconSize} />
             </IconButton>
             {currentUser && currentUser.uid === comment.commenterID ? (
               <>
                 <IconButton>
-                  <EditIcon className={classes.IconDelete} />
+                  <EditIcon className={classes.ScuiCommentIconSize} />
                 </IconButton>
                 <IconButton
                   onClick={() => {
@@ -107,22 +115,24 @@ const BlogsCommentsCard = (props) => {
                     );
                   }}
                 >
-                  <DeleteIcon className={classes.IconDelete} />
+                  <DeleteIcon className={classes.ScuiCommentIconSize} />
                 </IconButton>
               </>
             ) : null}
           </Menu>
         </Grid>
-        <Grid item xs={12} className={classes.GridProfileDetails}>
-          <CardContent className={classes.Content}>
-            <Typography variant="h5" className={classes.neckTextP}>
-              {comment.blogCommentBody}
-            </Typography>
-          </CardContent>
+        <Grid item xs={12}>
+          <Box className={classes.ScuiCommentBodyBox}>
+            <CardContent className={classes.ScuiCommentBodyContent}>
+              <Typography variant="subtitle2">
+                {comment.blogCommentBody}
+              </Typography>
+            </CardContent>
+          </Box>
         </Grid>
       </Grid>
     </Card>
   );
 };
 
-export default withStyles(blogPostMui)(BlogsCommentsCard);
+export default withStyles(MuiDistributor)(BlogsCommentsCard);

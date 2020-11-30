@@ -389,6 +389,15 @@ export const MuiDistributor = (theme) => ({
 
   // #action :  comment
 
+  ScuiCommentCard: {
+    "& .MuiCardHeader-root": {
+      "& .MuiCardHeader-content": {
+        marginBottom: "auto",
+      },
+    },
+    borderRadius: 0,
+    borderBottom: ".5px solid #c1c1c1",
+  },
   ScuiCommentHead: {
     display: "flex",
     justifyContent: "flex-start",
@@ -399,14 +408,6 @@ export const MuiDistributor = (theme) => ({
     flexDirection: "column",
   },
 
-  ScuiCommentCard: {
-    "& .MuiCardHeader-root": {
-      "& .MuiCardHeader-content": {
-        marginBottom: "auto",
-      },
-    },
-    borderRadius: 0,
-  },
   ScuiCommentIconButton: {
     height: 35,
     width: 35,
