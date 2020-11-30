@@ -25,6 +25,7 @@ import {
   Toolbar,
   IconButton,
   Paper,
+  CssBaseline,
 } from "@material-ui/core";
 import ImportExportIcon from "@material-ui/icons/ImportExport";
 
@@ -116,7 +117,8 @@ const Reviews = (props) => {
   };
 
   return (
-    <Grid container>
+    <Grid container component="main">
+      <CssBaseline />
       <Grid
         item
         xl={12}
@@ -152,4 +154,4 @@ const Reviews = (props) => {
     </Grid>
   );
 };
-export default withStyles(reviewsMui)(Reviews);
+export default Reviews;

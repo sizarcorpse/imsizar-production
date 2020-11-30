@@ -1,103 +1,51 @@
 export const skillCardMui = (theme) => ({
-  card: {
-    maxWidth: 320,
-    maxHeight: 300,
-    margin: "auto auto 27px",
+  ScuiSkillCard: {
+    display: "flex",
+    flexDirection: "column",
+    // justifyContent: "center",
+    alignItems: "center",
+    background: "#353535",
+    fontSize: "3rem",
+    color: "#fff",
+    boxShadow:
+      "rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem, rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem",
+    height: "100%",
+    width: " 100%",
+    bordeRadius: 5,
+    transition: "all 500ms",
+    overflow: "hidden",
+
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
   },
 
-  cardpreview: {
-    width: 320,
-    maxWidth: 320,
-    maxHeight: 300,
-    margin: "auto auto",
+  ScuiCardAction: {
+    justifyContent: "flex-end",
+    marginBottom: theme.spacing(2),
   },
-  media: {
-    height: 300,
-    width: "100%",
-    objectFit: "cover",
+
+  ScuiCardHeaderBox: {
+    alignContent: "flex-start",
+    marginRight: "auto",
+    marginTop: "auto",
   },
-  CardHeader: {
-    position: "relative",
-    bottom: 150,
+
+  ScuiCardHeader: {
+    padding: "4px 16px",
   },
-  ico: {
-    position: "relative",
-    bottom: 200,
+
+  ScuiSpan: {
+    marginRight: theme.spacing(1),
   },
-  headText: {
-    fontSize: 30,
-    letterSpacing: 0,
-    wordSpacing: 4,
-    fontWeight: 700,
-    fontStyle: "normal",
-    fontVariant: "normal",
-    color: "#FFFFFF",
-    display: "flex",
-    marginBottom: 10,
-  },
-  neckText: {
-    fontSize: 16,
-    fontWeight: 500,
-    fontStyle: "normal",
-    color: "#FFFFFF",
-    display: "flex",
-    justifyContent: "flex-start",
-  },
-  neckText2: {
-    fontSize: 13,
-    fontWeight: 400,
-    fontStyle: "normal",
-    color: "#FFFFFF",
-    display: "flex",
-    textAlign: "left",
-  },
-  span: {
-    marginRight: 10,
-  },
-  StatusIcon: {
+
+  ScuiStatusIcon: {
     fontSize: 20,
   },
-  ButtonStatus: {
+
+  ScuiButtonStatus: {
     height: 20,
     width: 20,
     margin: "auto 2px",
-  },
-  CardHeadOption: {
-    position: "relative",
-    bottom: 425,
-  },
-  IconLike: {
-    fontSize: 25,
-  },
-  ButtonLike: {
-    marginRight: "auto",
-  },
-
-  menu: {
-    "&.MuiPopover-root": {
-      // under the menu :: paper
-      // background: "rgba(255,255,255,.3)",
-    },
-    "& .MuiMenuItem-root": {
-      minWidth: 300,
-    },
-
-    "& .MuiPopover-paper": {
-      marginTop: 40,
-      boxShadow: "1px 1px 10px -3px rgba(11,11,11,0.2)",
-    },
-    "& .MuiMenu-paper ": {
-      //background color of menu
-      //menu background
-    },
-  },
-
-  neckText3: {
-    fontSize: 13,
-    fontWeight: 500,
-    fontStyle: "normal",
-    color: "#696969",
-    display: "flex",
-    textAlign: "left",
   },
 });

@@ -1,36 +1,42 @@
 import React, { useState } from "react";
 
+// #firebase :
+
+// #contexts :
 import { useAuth } from "../../contexts/AuthContext";
-//component
+
+// #components :
 import UpdateSkill from "./UpdateSkill";
-//firebase
 
-//hook
+// #hooks :
 
-//mui
+// #material-ui :
+import clsx from "clsx";
 import { skillCardMui } from "./muiSKillCard";
+import { MuiDistributor } from "../../muiTheme/MuiDistributor";
 import { withStyles } from "@material-ui/core/styles";
 import {
+  Grid,
   Typography,
   Card,
   CardHeader,
-  CardMedia,
   IconButton,
   CardActions,
   Menu,
   MenuItem,
-  Collapse,
   Modal,
   Fade,
   Backdrop,
+  Box,
+  CssBaseline,
 } from "@material-ui/core";
-import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import LinkIcon from "@material-ui/icons/Link";
 import StarsIcon from "@material-ui/icons/Stars";
+
 const SkillCard = (props) => {
-  const { classes, skill, width, deleteSkill } = props;
+  const { classes, skill, deleteSkill } = props;
   const { currentUser } = useAuth();
   const [menuOpen, setMenuOpen] = useState(null);
   const [open, setOpen] = useState(false);
@@ -50,107 +56,128 @@ const SkillCard = (props) => {
     setMenuOpen(null);
   };
   return (
-    <>
-      <Card className={classes.card}>
-        <CardMedia className={classes.media} image={skill.skillCoverPhoto} />
+    <Card
+      className={classes.ScuiSkillCard}
+      style={{ backgroundImage: `url(${skill.skillCoverPhoto})` }}
+    >
+      <CssBaseline />
 
-        <CardHeader
-          className={classes.CardHeader}
-          title={
-            <Typography variant="h5" className={classes.headText}>
-              {skill.skillName}
-              <span className={classes.span} />
-              {skill.skillIsTop && (
-                <IconButton className={classes.ButtonStatus}>
-                  <FavoriteIcon className={classes.StatusIcon} />
+      <Grid container>
+        <Grid item xs={12}>
+          <CardActions className={classes.ScuiCardAction}>
+            <Box>
+              {currentUser && currentUser.admin === true ? (
+                <IconButton>
+                  <MoreVertIcon onClick={handleMenuOpen} />
                 </IconButton>
+              ) : (
+                <IconButton></IconButton>
               )}
-              {skill.skillIsFeatured && (
-                <IconButton className={classes.ButtonStatus}>
-                  <StarsIcon className={classes.StatusIcon} />
-                </IconButton>
-              )}
+              {currentUser && currentUser.admin === true ? (
+                <Menu
+                  id="simple-menu"
+                  anchorEl={menuOpen}
+                  open={Boolean(menuOpen)}
+                  onClose={handleMenuClose}
+                  className={clsx(
+                    classes.ScuiMenuSmall,
+                    classes.ScuiMenuSmallPadding
+                  )}
+                >
+                  <MenuItem onClick={handleOpenModel}>
+                    <Typography variant="h5">Update</Typography>
+                  </MenuItem>
+                  <Modal
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    className={classes.modal}
+                    open={open}
+                    onClose={handleCloseModel}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                      timeout: 500,
+                    }}
+                  >
+                    <Fade in={open}>
+                      <div className={classes.paper}>
+                        <UpdateSkill
+                          handleCloseModel={handleCloseModel}
+                          skill={skill}
+                        />
+                      </div>
+                    </Fade>
+                  </Modal>
+                  <MenuItem
+                    onClick={() => {
+                      deleteSkill(skill.skillID);
+                    }}
+                  >
+                    <Typography variant="h5">Delete</Typography>
+                  </MenuItem>
 
-              <IconButton className={classes.ButtonStatus}>
-                <LinkIcon className={classes.StatusIcon} />
-              </IconButton>
-            </Typography>
-          }
-          subheader={
-            <>
-              <Typography variant="h5" className={classes.neckText}>
-                {skill.skillPlatform} | {skill.skillExperiance}
-              </Typography>
-              <Typography variant="p" className={classes.neckText2}>
-                {skill.skillDescription}
-              </Typography>
-            </>
-          }
-        />
-        <CardActions className={classes.CardHeadOption}>
-          <IconButton className={classes.ButtonLike}>
-            {/* <ThumbUpIcon className={classes.IconLike} /> */}
-          </IconButton>
-          {currentUser && currentUser.admin === true ? (
-            <IconButton>
-              <MoreVertIcon onClick={handleMenuOpen} />
-            </IconButton>
-          ) : null}
-          {currentUser && currentUser.admin === true ? (
-            <Menu
-              id="simple-menu"
-              anchorEl={menuOpen}
-              open={Boolean(menuOpen)}
-              onClose={handleMenuClose}
-              className={classes.menu}
-            >
-              <MenuItem onClick={handleOpenModel}>
-                <Typography variant="p" className={classes.neckText3}>
-                  Update
-                </Typography>
-              </MenuItem>
-              <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={open}
-                onClose={handleCloseModel}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                  timeout: 500,
-                }}
-              >
-                <Fade in={open}>
-                  <div className={classes.paper}>
-                    <UpdateSkill
-                      handleCloseModel={handleCloseModel}
-                      skill={skill}
-                    />
-                  </div>
-                </Fade>
-              </Modal>
-              <MenuItem
-                onClick={() => {
-                  deleteSkill(skill.skillID);
-                }}
-              >
-                <Typography variant="p" className={classes.neckText3}>
-                  Delete
-                </Typography>
-              </MenuItem>
+                  <MenuItem onClick={handleMenuClose}>
+                    <Typography variant="h5">Report</Typography>
+                  </MenuItem>
+                </Menu>
+              ) : null}
+            </Box>
+          </CardActions>
+        </Grid>
+        <Grid item xs={12}>
+          <Box className={classes.ScuiCardHeaderBox}>
+            <CardHeader
+              className={classes.ScuiCardHeader}
+              title={
+                <Typography variant="h3">
+                  {skill.skillName}
+                  <span className={classes.ScuiSpan} />
+                  {skill.skillIsTop && (
+                    <IconButton className={classes.ScuiButtonStatus}>
+                      <FavoriteIcon className={classes.ScuiStatusIcon} />
+                    </IconButton>
+                  )}
+                  {skill.skillIsFeatured && (
+                    <IconButton className={classes.ScuiButtonStatus}>
+                      <StarsIcon className={classes.ScuiStatusIcon} />
+                    </IconButton>
+                  )}
 
-              <MenuItem onClick={handleMenuClose}>
-                <Typography variant="p" className={classes.neckText3}>
-                  Report
+                  <IconButton className={classes.ScuiButtonStatus}>
+                    <LinkIcon className={classes.ScuiStatusIcon} />
+                  </IconButton>
                 </Typography>
-              </MenuItem>
-            </Menu>
-          ) : null}
-        </CardActions>
-      </Card>
-    </>
+              }
+            />
+          </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <Box className={classes.CardHeaderXX}>
+            <CardHeader
+              className={classes.CardHeader}
+              subheader={
+                <>
+                  <Typography variant="subtitle1" color="secondary">
+                    {skill.skillPlatform} | {skill.skillExperiance}
+                  </Typography>
+                  <Typography variant="subtitle2" color="secondary">
+                    {skill.skillDescription}
+                  </Typography>
+                </>
+              }
+            />
+          </Box>
+        </Grid>
+        <Grid item xs={12}></Grid>
+      </Grid>
+    </Card>
   );
 };
 
-export default withStyles(skillCardMui)(SkillCard);
+export default withStyles(
+  (theme) => ({
+    ...skillCardMui(theme),
+    ...MuiDistributor(theme),
+  }),
+  { withTheme: true }
+)(SkillCard);

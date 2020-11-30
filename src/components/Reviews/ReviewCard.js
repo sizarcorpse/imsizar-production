@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import clsx from "clsx";
+
 import { formatDistanceToNow } from "date-fns";
 import { Formik, Form } from "formik";
 import { v4 as uuidv4 } from "uuid";
@@ -23,6 +23,8 @@ import { useSnackbar } from "notistack";
 import { validationSchema } from "./ReviewCommentFormValidations";
 
 // #material-ui :
+import clsx from "clsx";
+import { MuiDistributor } from "../../muiTheme/MuiDistributor";
 import { withStyles } from "@material-ui/core/styles";
 import { reviewsMui } from "./muiReviews";
 import {
@@ -43,13 +45,14 @@ import {
   Grid,
   TextareaAutosize,
   FormControl,
+  Box,
+  CssBaseline,
 } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SendIcon from "@material-ui/icons/Send";
-
+import CommentIcon from "@material-ui/icons/Comment";
 const ReviewCard = (props) => {
   const { currentUser } = useAuth();
   const { classes, review, deleteReview } = props;
@@ -214,22 +217,14 @@ const ReviewCard = (props) => {
   };
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.ScuiContentCard}>
       <CardHeader
         avatar={
-          <Avatar
-            aria-label="recipe"
-            className={classes.avatar}
-            onClick={handleClick}
-          >
+          <Avatar className={classes.ScuiAvaterMedium} onClick={handleClick}>
             <img
               src={review.reviewerPhotoUrl}
               alt=""
-              style={{
-                height: 60,
-                width: "100%",
-                objectFit: "cover",
-              }}
+              className={classes.ScuiAvayerMediumImage}
             />
           </Avatar>
         }
@@ -244,15 +239,16 @@ const ReviewCard = (props) => {
                 anchorEl={menuOpen}
                 open={Boolean(menuOpen)}
                 onClose={handleMenuClose}
-                className={classes.menu}
+                className={clsx(
+                  classes.ScuiMenuSmall,
+                  classes.ScuiMenuSmallPaddingReview
+                )}
               >
                 {review.reviewerID === currentUser.uid ||
                 currentUser.admin === true ? (
                   <>
                     <MenuItem onClick={handleOpenModel}>
-                      <Typography variant="p" className={classes.neckText2}>
-                        Update
-                      </Typography>
+                      <Typography variant="h5">Update</Typography>
                     </MenuItem>
                     <Modal
                       className={classes.modal}
@@ -278,16 +274,12 @@ const ReviewCard = (props) => {
                         deleteReview(review.reviewID, review.reviewerID);
                       }}
                     >
-                      <Typography variant="p" className={classes.neckText2}>
-                        Delete
-                      </Typography>
+                      <Typography variant="h5">Delete</Typography>
                     </MenuItem>
                   </>
                 ) : null}
                 <MenuItem onClick={handleMenuClose}>
-                  <Typography variant="p" className={classes.neckText2}>
-                    Report
-                  </Typography>
+                  <Typography variant="h5">Report</Typography>
                 </MenuItem>
               </Menu>
             ) : null}
@@ -295,8 +287,11 @@ const ReviewCard = (props) => {
         }
         title={
           <>
-            <Link onClick={handleClick} className={classes.LinkUnderlineRemove}>
-              <Typography variant="h5" className={classes.headText}>
+            <Link
+              onClick={handleClick}
+              className={classes.ScuiLinkUnderLineRemove}
+            >
+              <Typography variant="caption" color="primary">
                 {review.reviewer}
               </Typography>
             </Link>
@@ -315,37 +310,18 @@ const ReviewCard = (props) => {
         }
         subheader={
           <>
-            {/* <Typography variant="h5" className={classes.neckText}>
-              {review.reviewID}
-            </Typography> */}
-
-            <Typography variant="h5" className={classes.neckText2}>
+            <Typography variant="h5">
               {formatDistanceToNow(new Date(review.reviewCreatedAt))}
             </Typography>
           </>
         }
       />
       <CardContent>
-        <Divider
-          style={{
-            marginTop: "5px",
-            marginBottom: "30px",
-          }}
-        />
-        <Typography
-          variant="body1"
-          color="textPrimary"
-          component="p"
-          style={{ whiteSpace: "pre-line" }}
-        >
+        {/* <Divider className={classes.ScuiDividerTB1} /> */}
+        <Typography variant="body1" color="textPrimary">
           {review.reviewBody}
         </Typography>
-        <Divider
-          style={{
-            marginTop: "30px",
-            marginBottom: "5px",
-          }}
-        />{" "}
+        <Divider className={classes.ScuiDividerT24} />
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
@@ -360,9 +336,8 @@ const ReviewCard = (props) => {
           })}
           onClick={handleExpandClick}
           aria-expanded={expanded}
-          aria-label="show more"
         >
-          <ExpandMoreIcon />
+          <CommentIcon />
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -392,7 +367,7 @@ const ReviewCard = (props) => {
                       <Grid item xs={isText ? 11 : 12}>
                         <FormControl error fullWidth>
                           <TextareaAutosize
-                            className={classes.textAreax}
+                            className={classes.ScuiTextAreaSmall}
                             label="Comment"
                             variant="outlined"
                             id="reviewCommentBody"
@@ -425,17 +400,19 @@ const ReviewCard = (props) => {
             </Formik>
           ) : null}
 
-          {reviewComments &&
-            reviewComments.map((comment) => (
-              <ReviewCommentsCard
-                comment={comment}
-                deleteReviewComment={deleteReviewComment}
-              />
-            ))}
+          <Box mt={2}>
+            {reviewComments &&
+              reviewComments.map((comment, i) => (
+                <ReviewCommentsCard
+                  comment={comment}
+                  deleteReviewComment={deleteReviewComment}
+                />
+              ))}
+          </Box>
         </CardContent>
       </Collapse>
     </Card>
   );
 };
 
-export default withStyles(reviewsMui)(ReviewCard);
+export default withStyles(MuiDistributor)(ReviewCard);

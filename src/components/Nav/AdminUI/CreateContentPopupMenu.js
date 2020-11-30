@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useAuth } from "../../../contexts/AuthContext";
 import { Link } from "react-router-dom";
 
-import CreateReview from "../../Reviews/CreateReview";
 import CreateSkill from "../../Skills/CreateSkill";
 import CreateBlog from "../../Blog/CreateBlog";
 import CreateGallery from "../../Gallery/CreateGallery";
@@ -24,7 +23,7 @@ import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import NoteAddIcon from "@material-ui/icons/NoteAdd";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 function CreateContentPopupMenu(props) {
-  // const { currentUser } = useAuth();
+  const { currentUser } = useAuth();
   const { classes, contentMenuOpen, handleContentMenuClose } = props;
 
   const [createSkillModelOpen, setCreateSkillModelOpen] = useState(false);

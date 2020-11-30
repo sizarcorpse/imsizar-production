@@ -3,7 +3,7 @@ import Contents from "./Contents";
 import Profile from "../Profile/Profile";
 import UserProfile from "../Profile/UserProfile";
 
-import { Grid, Hidden } from "@material-ui/core";
+import { Grid, Hidden, Box, CssBaseline } from "@material-ui/core";
 
 import bgsvg from "../../assets/bgsvg.svg";
 import vb from "../../assets/background.svg";
@@ -23,10 +23,7 @@ const Landing = (props) => {
         backgroundImage: `url(${bgsvg})`,
       }}
     >
-      {/* <Grid item xs={12} xl={12} lg={12} md={12} sm={12}>
-        <Nav />
-      </Grid> */}
-
+      <CssBaseline />
       <Grid item xs={12} xl={12} lg={12} md={12} sm={12}>
         <img
           src={vb}
@@ -35,17 +32,12 @@ const Landing = (props) => {
         />
       </Grid>
 
-      <Grid
-        item
-        xs={12}
-        xl={3}
-        lg={4}
-        md={5}
-        sm={12}
-        style={{ marginLeft: "auto" }}
-      >
-        {!username ? <Profile /> : <UserProfile username={username} />}
+      <Grid item xs={12} xl={3} lg={4} md={5} sm={12}>
+        <Box display="flex" justifyContent="flex-end">
+          {!username ? <Profile /> : <UserProfile username={username} />}
+        </Box>
       </Grid>
+
       <Grid item xs={12} xl={9} lg={8} md={7} sm={false}>
         <Contents />
       </Grid>

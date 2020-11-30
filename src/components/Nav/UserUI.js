@@ -100,7 +100,6 @@ const UserUI = (props) => {
               <Fade in={open}>
                 <div className={classes.paper}>
                   <CreateReview handleCloseModel={handleCloseModel} />
-                  {/* <CreateSkill handleCloseModel={handleCloseModel} /> */}
                 </div>
               </Fade>
             </Modal>

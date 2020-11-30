@@ -21,7 +21,8 @@ export const createProfileMui = (theme) => ({
   newC: {
     maxWidth: 400,
     margin: "auto",
-    background: "transparent",
+    background: "none",
+    boxShadow: "none",
   },
 
   hide: {

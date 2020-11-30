@@ -26,7 +26,7 @@ import RouteBack from "../customRoutes/RouteBack";
 import { SnackbarProvider } from "notistack";
 
 // #material-ui :
-import { Button, ThemeProvider } from "@material-ui/core";
+import { Button, ThemeProvider, CssBaseline } from "@material-ui/core";
 import theme from "../muiTheme/Theme";
 
 function App() {
@@ -48,6 +48,7 @@ function App() {
             </Button>
           )}
         >
+          <CssBaseline />
           <AuthProvider>
             <Route path="/" component={Nav} />
             <Switch>

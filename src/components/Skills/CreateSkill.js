@@ -10,7 +10,7 @@ import app, { stroage } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
 
 // #components :
-import PreviewSkillCard from "./PreviewSkillCard";
+// import PreviewSkillCard from "./PreviewSkillCard";
 
 // #validations :
 import { validationSchema } from "./CreateSkillFormValidation";

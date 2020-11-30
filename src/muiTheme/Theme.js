@@ -10,6 +10,9 @@ const theme = createMuiTheme({
       dark: "#112d4e",
     },
     secondary: {
+      // light: " #f9f7f7",
+      // main: "#f9f7f7",
+      // dark: "#f9f7f7",
       light: " #3f72af",
       main: "#3f72af",
       dark: "#303f9f",
@@ -46,12 +49,13 @@ const theme = createMuiTheme({
       color: "#112d4e",
     },
     h3: {
-      //username card
-      fontSize: 20,
-      fontWeight: 500,
+      //skill head
+      fontSize: 30,
+      letterSpacing: 0,
+      wordSpacing: 4,
+      fontWeight: 700,
       fontStyle: "normal",
-      lineHeight: 1.5,
-      color: "#112d4e",
+      fontVariant: "normal",
     },
     h4: {
       // mian text
@@ -78,6 +82,50 @@ const theme = createMuiTheme({
       color: "#132743",
       marginTop: 8,
       marginRight: 48,
+    },
+
+    subtitle1: {
+      fontSize: 16,
+      fontWeight: 500,
+      fontStyle: "normal",
+    },
+
+    subtitle2: {
+      fontSize: 14,
+      fontWeight: 400,
+      fontStyle: "normal",
+      whiteSpace: "pre-line",
+    },
+
+    caption: {
+      letterSpacing: -0.5,
+      fontSize: 20,
+      wordSpacing: 1,
+      fontWeight: 600,
+      textDecoration: "none",
+      fontStyle: "normal",
+      fontVariant: "normal",
+      textTransform: "none",
+      fontFamily: "Arial",
+      display: "flex",
+      lineHeight: 1.5,
+    },
+
+    body1: {
+      fontSize: 16,
+      lineHeight: 1.5,
+      whiteSpace: "pre-line",
+    },
+    body2: {
+      fontSize: 12,
+      fontWeight: 500,
+    },
+    overline: {
+      fontSize: 15,
+      fontWeight: 500,
+      fontStyle: "normal",
+      lineHeight: 1.5,
+      color: "#112d4e",
     },
   },
 });

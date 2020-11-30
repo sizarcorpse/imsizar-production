@@ -144,6 +144,10 @@ export const MuiDistributor = (theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
+  ScuiDividerTB1: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
 
   // #action :
   // Select Component
@@ -239,6 +243,26 @@ export const MuiDistributor = (theme) => ({
     borderRadius: "200px 200px 200px 200px",
   },
 
+  ScuiAvaterMedium: {
+    height: 60,
+    width: 60,
+  },
+  ScuiAvayerMediumImage: {
+    height: 60,
+    width: "100%",
+    objectFit: "cover",
+  },
+
+  ScuiAvaterSmall: {
+    height: 35,
+    width: 35,
+  },
+  ScuiAvayerSmallImage: {
+    height: 35,
+    width: "100%",
+    objectFit: "cover",
+  },
+
   //
   // CardContentMain: {
   //   height: 550,
@@ -302,5 +326,107 @@ export const MuiDistributor = (theme) => ({
   ScuiAddIcon: {
     cursor: "pointer",
     color: "rgb(227,227,227)",
+  },
+
+  // #action : menu
+
+  ScuiMenuSmall: {
+    "& .MuiMenuItem-root": {
+      minWidth: 100,
+    },
+    "& .MuiPopover-paper": {
+      marginTop: 40,
+      boxShadow: "1px 1px 10px -3px rgba(11,11,11,0.2)",
+    },
+  },
+  ScuiMenuSmallPadding: {
+    marginLeft: -56,
+  },
+  ScuiMenuSmallPaddingReview: {
+    marginLeft: -21,
+  },
+
+  ScuiMenuComment: {
+    "& .MuiMenuItem-root": {
+      minWidth: 100,
+      padding: "8px 0px",
+    },
+    "& .MuiList-root": {
+      margin: "8px 0px",
+      padding: 0,
+      position: "relative",
+      display: "flex",
+      justifyContent: "center",
+    },
+    "& .MuiPopover-paper": {
+      marginTop: 40,
+      marginLeft: -63,
+      padding: "0px 5px",
+      boxShadow: "1px 1px 10px -3px rgba(11,11,11,0.2)",
+    },
+    "& .MuiPaper-root": {
+      width: 141,
+    },
+  },
+
+  //POST
+  ScuiContentCard: {
+    maxWidth: 800,
+    padding: theme.spacing(3),
+    margin: "0px auto 24px",
+  },
+
+  expand: {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.complex,
+    }),
+  },
+  expandOpen: {
+    transform: "rotate(360deg)",
+  },
+
+  // #action :  comment
+
+  ScuiCommentHead: {
+    display: "flex",
+    justifyContent: "flex-start",
+  },
+  ScuiCommentHeadXs: {
+    display: "flex",
+    justifyContent: "flex-start",
+    flexDirection: "column",
+  },
+
+  ScuiCommentCard: {
+    "& .MuiCardHeader-root": {
+      "& .MuiCardHeader-content": {
+        marginBottom: "auto",
+      },
+    },
+    borderRadius: 0,
+  },
+  ScuiCommentIconButton: {
+    height: 35,
+    width: 35,
+    "&.MuiIconButton-root": {
+      margin: "auto 5px",
+      padding: "0px 0px",
+    },
+  },
+  ScuiCommentIconSize: {
+    fontSize: 20,
+  },
+
+  ScuiCommentBodyContent: {
+    "&.MuiCardContent-root": {
+      marginLeft: 57,
+      padding: "0px 8px 15px 8px",
+    },
+  },
+
+  ScuiCommentBodyBox: {
+    padding: "0px 10px",
   },
 });

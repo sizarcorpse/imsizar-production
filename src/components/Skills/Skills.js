@@ -1,60 +1,68 @@
 import React, { useEffect, useState } from "react";
 
-//firebase
+// #firebase :
 import app, { stroage } from "../../firebase";
 
-//components
+// #components :
 import SkillCard from "./SkillCard";
+import Sort from "./Sort";
 
-// contexts
+// #contexts :
 import { useAuth } from "../../contexts/AuthContext";
 
-//mui
-import { getGridListCols } from "../../customMui/gridCol";
+// #material-ui :
+
 import withWidth from "@material-ui/core/withWidth";
 import withStyles from "@material-ui/core/styles/withStyles";
-import { Grid, GridList, GridListTile, Toolbar } from "@material-ui/core";
-import { startOfToday } from "date-fns";
-
-const useStyles = (theme) => ({});
+import { Grid, Toolbar, Box, IconButton, CssBaseline } from "@material-ui/core";
+import ImportExportIcon from "@material-ui/icons/ImportExport";
+const useStyles = (theme) => ({
+  grid: {
+    display: "grid",
+    gap: "1rem",
+    gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+    gridAutoRows: 260,
+  },
+});
 
 function Skills(props) {
   const { currentUser } = useAuth();
-  const { width } = props;
+  const { classes, width } = props;
   const [allskill, setAllskill] = useState([]);
-  const customGridCols = getGridListCols(width);
   const [loading, setLoading] = useState(false);
+  const [desc, setDesc] = useState("desc");
+  const [sortValue, setSortValue] = useState("skillExperiance");
 
-  const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(2);
+  // const [page, setPage] = useState(0);
+  // const [pageSize, setPageSize] = useState(2);
 
   useEffect(() => {
     console.log("run 1 time");
     getAllSkill();
     // eslint-disable-next-line
-  }, []);
+  }, [desc, sortValue]);
 
   function getAllSkill() {
     setLoading(true);
     const db = app.firestore();
 
-    db.collection("skills").onSnapshot((querySnapshot) => {
-      let items = [];
+    db.collection("skills")
+      .orderBy(sortValue, desc)
+      .onSnapshot((querySnapshot) => {
+        let items = [];
 
-      querySnapshot.forEach(
-        (doc) => {
-          items.push(doc.data());
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-      setAllskill(items);
-      setLoading(false);
-    });
+        querySnapshot.forEach(
+          (doc) => {
+            items.push(doc.data());
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+        setAllskill(items);
+        setLoading(false);
+      });
   }
-
-  console.log("widthwidthwidth", width);
 
   const deleteSkill = async (skillID) => {
     if (currentUser.admin === true) {
@@ -80,24 +88,48 @@ function Skills(props) {
     }
   };
 
+  const descAsc = () => {
+    if (desc === "desc") {
+      setDesc("asc");
+    } else {
+      setDesc("desc");
+    }
+  };
+
   return (
-    <Grid container>
-      <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-        <Toolbar style={{ minHeight: 15 }}></Toolbar>
+    <Grid container component="main">
+      <CssBaseline />
+      <Grid
+        item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
+        style={{ display: "flex", justifyContent: "flex-end" }}
+      >
+        <Toolbar style={{ minHeight: 15, paddingRight: 0 }}>
+          <Sort setSortValue={setSortValue} />
+          <IconButton
+            style={{ right: 29 }}
+            onClick={descAsc}
+            title={desc === "desc" ? "desc" : "asc"}
+          >
+            <ImportExportIcon style={{ fontSize: 20, color: "#1d2d50" }} />
+          </IconButton>
+        </Toolbar>
       </Grid>
       <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-        <GridList cellHeight={"auto"} spacing={0} cols={customGridCols}>
-          {allskill.map((skill) => (
-            <GridListTile cols={1} spacing={5}>
-              <SkillCard
-                skill={skill}
-                key={skill.skillID}
-                width={width}
-                deleteSkill={deleteSkill}
-              />
-            </GridListTile>
+        <Box className={classes.grid}>
+          {allskill.map((skill, i) => (
+            <SkillCard
+              skill={skill}
+              key={skill.skillID}
+              width={width}
+              deleteSkill={deleteSkill}
+            />
           ))}
-        </GridList>
+        </Box>
       </Grid>
     </Grid>
   );

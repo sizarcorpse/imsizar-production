@@ -11,10 +11,9 @@ import {
   SvgIcon,
 } from "@material-ui/core";
 
-import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
-import CommentIcon from "@material-ui/icons/Comment";
-import DateRangeIcon from "@material-ui/icons/DateRange";
-
+import AvTimerIcon from "@material-ui/icons/AvTimer";
+import DeveloperModeIcon from "@material-ui/icons/DeveloperMode";
+import StarIcon from "@material-ui/icons/Star";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: 4,
@@ -101,43 +100,43 @@ const useSort = (props) => {
         open={sortOptionOpen}
         onClose={handleSortClose}
         onOpen={handleSortOpen}
-        defaultValue="galleryPhotoCreatedAt"
+        defaultValue="skillExperiance"
         onChange={handleSortChange}
         className={classes.formControlz}
         displayEmpty
       >
-        <MenuItem value="galleryPhotoCreatedAt" default courseSelected>
+        <MenuItem value="skillExperiance" default courseSelected>
           {
             <Button
               size="small"
-              startIcon={<DateRangeIcon style={{ fontSize: 16 }} />}
+              startIcon={<AvTimerIcon style={{ fontSize: 16 }} />}
             >
               <Typography variant="h5" className={classes.neckText2}>
-                Date Added
+                Experiance
               </Typography>
             </Button>
           }
         </MenuItem>
 
-        <MenuItem value="galleryPhotoLikeCount">
+        <MenuItem value="skillPlatform">
           {" "}
           <Button
             size="small"
-            startIcon={<ThumbUpAltIcon style={{ fontSize: 16 }} />}
+            startIcon={<DeveloperModeIcon style={{ fontSize: 16 }} />}
           >
             <Typography variant="h5" className={classes.neckText2}>
-              Most Liked
+              Platform
             </Typography>
           </Button>
         </MenuItem>
-        <MenuItem value="galleryPhotoCommentCount">
+        <MenuItem value="skillIsTop">
           {" "}
           <Button
             size="small"
-            startIcon={<CommentIcon style={{ fontSize: 16 }} />}
+            startIcon={<StarIcon style={{ fontSize: 16 }} />}
           >
             <Typography variant="h5" className={classes.neckText2}>
-              Most Comments
+              Top Skill
             </Typography>
           </Button>
         </MenuItem>
