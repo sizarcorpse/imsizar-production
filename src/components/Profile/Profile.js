@@ -149,7 +149,7 @@ const Profile = (props) => {
             item
             xs={12}
             className={classes.GridProfileDetails}
-            style={{ background: "white" }}
+            style={{ background: "transparent" }}
           >
             <CardHeader
               className={classes.CardHeaderProfileDetails}
@@ -178,7 +178,7 @@ const Profile = (props) => {
           </Grid>
           <CardContent
             className={classes.CardContentCotact}
-            style={{ background: "white" }}
+            style={{ background: "transparent" }}
           >
             <Grid container spacing={1}>
               <Grid item xs={6}>
@@ -190,7 +190,7 @@ const Profile = (props) => {
                   onClick={handleContactMeModelOpen}
                 >
                   <Typography variant="h5" className={classes.ButtonText}>
-                    Contact Me
+                    Lets Talk
                   </Typography>
                 </Button>
               </Grid>
@@ -199,6 +199,7 @@ const Profile = (props) => {
                   variant="outlined"
                   color="primary"
                   fullWidth
+                  disabled={!currentUser}
                   startIcon={
                     <TelegramIcon className={classes.ButtonIconColor} />
                   }

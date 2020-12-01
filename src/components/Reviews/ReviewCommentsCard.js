@@ -20,7 +20,7 @@ import {
   CardContent,
 } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import EditIcon from "@material-ui/icons/Edit";
@@ -91,7 +91,9 @@ const ReviewCommentsCard = (props) => {
                     </IconButton>
                   )}
                   <IconButton className={classes.ScuiCommentIconButton}>
-                    <FavoriteIcon className={classes.ScuiCommentIconSize} />
+                    <FavoriteBorderIcon
+                      className={classes.ScuiCommentIconSize}
+                    />
                   </IconButton>
                 </Box>
               }

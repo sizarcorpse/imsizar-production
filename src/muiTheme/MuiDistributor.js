@@ -396,7 +396,7 @@ export const MuiDistributor = (theme) => ({
       },
     },
     borderRadius: 0,
-    borderBottom: ".5px solid #c1c1c1",
+    // borderBottom: ".5px solid #c1c1c1",
   },
   ScuiCommentHead: {
     display: "flex",

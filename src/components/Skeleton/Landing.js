@@ -1,7 +1,9 @@
 import React from "react";
+
 import Contents from "./Contents";
 import Profile from "../Profile/Profile";
 import UserProfile from "../Profile/UserProfile";
+import Footer from "../Footer/Footer";
 
 import { Grid, Hidden, Box, CssBaseline } from "@material-ui/core";
 import bgsvg from "../../assets/bgsvg.svg";
@@ -19,7 +21,9 @@ const Landing = (props) => {
         backgroundColor: "#ffffff",
         backgroundAttachment: "fixed",
         backgroundSize: "cover",
-        backgroundImage: `url(${bgsvg})`,
+        /* backgroundImage: `url(${bgsvg})`, */
+        background:
+          "linear-gradient(180deg, rgba(249,247,247,1) 90%, rgba(225,229,236,1) 100%)",
       }}
     >
       <CssBaseline />
@@ -39,6 +43,9 @@ const Landing = (props) => {
 
       <Grid item xs={12} xl={9} lg={8} md={7} sm={false}>
         <Contents />
+      </Grid>
+      <Grid item xs={12} xl={12} lg={12} md={12} sm={12}>
+        <Footer />
       </Grid>
     </Grid>
   );

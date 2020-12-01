@@ -7,6 +7,7 @@ import Reviews from "../Reviews/Reviews";
 import Contact from "../Contact/Contact";
 import BlogPosts from "../Blog/BlogPosts";
 import PhotoGallery from "../Gallery/Gallery";
+import Info from "../Info/Info";
 //contexts
 
 //hooks
@@ -151,7 +152,7 @@ export default function Contents() {
         Events
       </TabPanel>
       <TabPanel value={value} index={5}>
-        Contact
+        <Info />
       </TabPanel>
     </div>
   );
