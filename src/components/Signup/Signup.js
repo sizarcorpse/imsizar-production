@@ -176,6 +176,7 @@ const Signup = (props) => {
                                       </InputAdornment>
                                     ),
                                 }}
+                                required
                                 autoComplete="firstName"
                                 name="firstName"
                                 variant="outlined"
@@ -209,6 +210,7 @@ const Signup = (props) => {
                                       </InputAdornment>
                                     ),
                                 }}
+                                required
                                 autoComplete="lastName"
                                 name="lastName"
                                 variant="outlined"
@@ -243,6 +245,7 @@ const Signup = (props) => {
                                       </InputAdornment>
                                     ),
                                 }}
+                                required
                                 autoComplete="username"
                                 name="username"
                                 variant="outlined"
