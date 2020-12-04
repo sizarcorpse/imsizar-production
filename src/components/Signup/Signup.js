@@ -64,25 +64,23 @@ const Signup = (props) => {
 
   const onSubmit = async (values, { resetForm }) => {
     const { email, password, firstName, lastName, username } = values;
+
     const db = app.firestore();
     try {
       setLoading(true);
       db.collection("users")
         .where("username", "==", username)
-        .limit(1)
         .get()
-        .then((data) => {
-          data.forEach(async (doc) => {
-            if (doc.data().username === username) {
-              setLoading(false);
-              return enqueueSnackbar("username already exists", {
-                variant: "error",
-              });
-            } else {
-              await signup(email, password, firstName, lastName, username);
-              history.push("/dashboard");
-            }
-          });
+        .then(async (querySnapshot) => {
+          if (!querySnapshot.empty) {
+            setLoading(false);
+            return enqueueSnackbar("username already exists", {
+              variant: "error",
+            });
+          } else {
+            await signup(email, password, firstName, lastName, username);
+            history.push("/dashboard");
+          }
         });
     } catch (e) {
       enqueueSnackbar(e.message, {
@@ -385,3 +383,20 @@ const Signup = (props) => {
 };
 
 export default withStyles(MuiDistributor)(Signup);
+
+// .then((data) => {
+//   data.forEach(async (doc) => {
+//     if (doc.data().username === username) {
+//       setLoading(false);
+//       return enqueueSnackbar("username already exists", {
+//         variant: "error",
+//       });
+//     }
+//     else {
+//       console.log(email, password, firstName, lastName, username);
+//       await signup(email, password, firstName, lastName, username);
+//       history.push("/dashboard");
+//       setLoading(false);
+//     }
+//   });
+// });
